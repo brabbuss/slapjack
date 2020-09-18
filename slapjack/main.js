@@ -8,3 +8,6 @@ window.event.keys for:
 
 
 */
+// if my turn, highlight deck and card with pulse?
+//
+//
