@@ -8,12 +8,6 @@ class Player {
     this.wins = 0;
     this.winner = false;        // just in case
     this.suddenDeathLeader = false
-    // this.suddenDeathLeader = !this.otherPlayer.suddenDeathLeader;
-    // if (this.player === "player1") {
-    //   this.otherPlayer = player2;
-    // } else {
-    //   this.otherPlayer = player1;
-    // }
   }
   dealCard(game) {
     console.log(game.suddenDeathMode);
@@ -69,17 +63,16 @@ class Player {
     }
   }
   collectDiscardPile(game) {
-    // this.myDeck = this.myDeck + game.discardPile;
     this.myDeck = this.myDeck.concat(game.discardPile);
     game.discardPile = [];
   }
   shuffleDeck() {
     var totalCards = this.myDeck.length;
     while (totalCards !== 0) {
-      var randomChoice = Math.floor(Math.random() * totalCards--);
+      var randomIndex = Math.floor(Math.random() * totalCards--);
       var pulledCard = this.myDeck[totalCards];
-      this.myDeck[totalCards] = this.myDeck[randomChoice];
-      this.myDeck[randomChoice] = pulledCard
+      this.myDeck[totalCards] = this.myDeck[randomIndex];
+      this.myDeck[randomIndex] = pulledCard
     }
     return this.myDeck;
   }
@@ -95,15 +88,4 @@ class Player {
       game.suddenDeathMode === false;
     }
   }
-
-
-  // should this be a method of the game???
-  winCheck() {
-    if (this.myDeck.length === 53) { // check win rules
-      this.winner = true;
-      this.wins++
-      return    // check for lose mode (run out, one more chance), check other player, and me
-    }
-  }
-  //
 }

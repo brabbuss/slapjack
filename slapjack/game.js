@@ -5,7 +5,7 @@ class Game {
     this.discardPile = [];
     this.suddenDeathMode = false;
     this.gameOver = false;
-    // this.suddenDeathLeader = !this.otherPlayer.suddenDeathLeader;
+    this.allCards = startingDeck;
 
   }
   startGame() {
@@ -22,27 +22,24 @@ class Game {
     // while
   }
   dealStartingCards() {
-    var totalCards = startingDeck.length;
+    var totalCards = this.allCards.length;
     while (totalCards !== 0) {
-      var randomChoice = Math.floor(Math.random() * totalCards--);
-      var pulledCard = startingDeck[totalCards];
-      startingDeck[totalCards] = startingDeck[randomChoice];
-      startingDeck[randomChoice] = pulledCard
+      var randomIndex = Math.floor(Math.random() * totalCards--);
+      var pulledCard = this.allCards[totalCards];
+      this.allCards[totalCards] = this.allCards[randomIndex];
+      this.allCards[randomIndex] = pulledCard
     }
-    //   if (Math.floor(Math.random()*(2)) === 1) {  // randomly select who goes first
-    //   this.player1.myTurn = true;
-    // } else {
-    //   this.player2.myTurn = true;
-    // }
-
-    // startingDeck
-    this.player1.myDeck = startingDeck.slice(0, 26);
+    this.player1.myDeck = this.allCards.slice(0, 26);
     this.player1.shuffleDeck();                    // for extra random
-    this.player2.myDeck = startingDeck.slice(26, 52);
+    this.player2.myDeck = this.allCards.slice(26, 52);
     this.player1.shuffleDeck();
-    this.discardPile.unshift(startingDeck[52])
+    this.discardPile.unshift(this.allCards[52])
+  }
+  winCheck() {
+    if (this.myDeck.length === 53) { // check win rules
+      this.winner = true;
+      this.wins++
+      return
+    }
   }
 }
-
-// validslap types and logic
-// live in data or game class?
