@@ -4,6 +4,10 @@ class Game {
     this.player2 = new Person("player2");
     this.discardPile = [];
   }
+  startGame() {
+    // shuffle and split
+    // choose random for first person
+  }
 }
 
 // validslap types and logic

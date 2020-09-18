@@ -14,9 +14,9 @@ class Player {
     }
   }
   dealCard(game) {
-    if (this.myTurn === true && this.myDeck !== []) { // event listen for related keys in main
+    if (this.myTurn === true && this.myDeck !== []) { // event listen for related key press in main
       // place on discard pile array
-      game.discardPile.unshift(this.myDeck[0]);  // TODO add this to game class
+      game.discardPile.unshift(this.myDeck[0]);
       // pull card from my card
       this.myDeck.shift();
       if (this.myDeck === []) {
@@ -25,12 +25,7 @@ class Player {
     }
   }
   slapCard(game) {
-    if (validBasicSlaps.includes(game.discardPile[0]) === true || validAdvancedSlaps.includes(game.discardPile[0]) === true) {
-      // above do I compare array or do I compart whats in the deck at that moment, an array, and how?
-      // jack [0], if [0] === [1], if [0] === [2]
-      // [0] contains string jk or wild
-      // game.discardPile[0].charAt(3) === game.discardPile[1].charAt(3)
-      // game.discardPile[0].charAt(3) === game.discardPile[2].charAt(3)
+    if (slapValidation() === true) {
       this.collectDiscardPile(game)
       this.myTurn = true
     } else {
@@ -39,15 +34,20 @@ class Player {
       this.myturn = false;
     }
   }
-  winCheck() {
-    if (this.myDeck.length === 53) { // check win rules
-      this.winner = true;
-      this.wins++
-      return          // check for lose mode (run out, one more chance)
+  slapValidation() {
+    if (validBasicSlaps.indexOf(game.discardPile[0]) !== -1) {  //  if the string at [0] is not included in basic slaps array, = -1 (void)
+      return true;
+    } else if (game.discardPile[0].charAt(3) === game.discardPile[1].charAt(3)) {  //  leveraging naming convention to match
+      return true;
+    } else if (game.discardPile[0].charAt(3) === game.discardPile[2].charAt(3)) {
+      return true;
+    } else {
+      return false;
     }
   }
   collectDiscardPile(game) {
     this.myDeck.concat(game.discardPile);
+    game.discardPile = [];
     this.shuffleDeck();
   }
   shuffleDeck() {
@@ -60,4 +60,13 @@ class Player {
     }
     return this.myDeck;
   }
+  // should this be a method of the game???
+  winCheck() {
+    if (this.myDeck.length === 53) { // check win rules
+      this.winner = true;
+      this.wins++
+      return    // check for lose mode (run out, one more chance), check other player, and me
+    }
+  }
+  //
 }
