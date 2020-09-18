@@ -16,12 +16,15 @@ class Player {
     // }
   }
   dealCard(game) {
-    if (game.suddenDeathMode !== true) {
+    console.log(game.suddenDeathMode);
+    if (game.suddenDeathMode !== true && this.myTurn === true) {
       game.discardPile.unshift(this.myDeck[0]);       // place on discard pile array
       this.myDeck.shift();      // pull card from my card
       this.myTurn = false;
+      this.otherPlayer.myTurn = true;
       this.checkSuddenDeath(game)
     } else {
+      console.log(`not your turn ${this.player}`);
       while (this.suddenDeathLeader === true) {
         game.discardPile.unshift(this.myDeck[0]);
         this.myDeck.shift();
@@ -35,6 +38,7 @@ class Player {
       game.gameOver = true; //if you successfully slap as leader. you win
     } else if (this.slapValidation(game) === true) {  // legal slap
       this.collectDiscardPile(game)
+      this.shuffleDeck();
       this.myTurn = true
       return true
     } else {
@@ -47,19 +51,26 @@ class Player {
   }
   slapValidation(game) {
     if (validBasicSlaps.indexOf(game.discardPile[0]) !== -1) {  //  if the string at [0] is not included in basic slaps array, = -1 (void)
+      console.log("trump card");
       return true;
-    } else if (game.discardPile[0].charAt(3) === game.discardPile[1].charAt(3)) {  //  leveraging naming convention to match
-      return true;
-    } else if (game.discardPile[0].charAt(3) === game.discardPile[2].charAt(3)) {
-      return true;
+    } else if (game.discardPile.length === 2) {
+      if (game.discardPile[0].charAt(3) === game.discardPile[1].charAt(3)) {  //  leveraging naming convention to match
+        console.log("doubles");
+        return true;
+      }
+    } else if (game.discardPile.length > 2) {
+      if (game.discardPile[0].charAt(3) === game.discardPile[2].charAt(3) || game.discardPile[0].charAt(3) === game.discardPile[1].charAt(3)) {
+        console.log("sandwich");
+        return true;
+      }
     } else {
+      console.log("bad slap");
       return false;
     }
   }
   collectDiscardPile(game) {
     this.myDeck.concat(game.discardPile);
     game.discardPile = [];
-    this.shuffleDeck();
   }
   shuffleDeck() {
     var totalCards = this.myDeck.length;

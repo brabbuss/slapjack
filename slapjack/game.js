@@ -12,7 +12,7 @@ class Game {
     this.player1.otherPlayer = this.player2;
     this.player2.otherPlayer = this.player1;
     this.dealStartingCards();
-    if (Math.floor(Math.random()*(2)) === 1) {
+    if (Math.floor(Math.random()*(2)) === 1) {  // randomly select who goes first
       this.player1.myTurn = true;
     } else {
       this.player2.myTurn = true;
@@ -23,18 +23,24 @@ class Game {
   }
   dealStartingCards() {
     var totalCards = startingDeck.length;
-    var shuffledStartingDeck;
     while (totalCards !== 0) {
       var randomChoice = Math.floor(Math.random() * totalCards--);
       var pulledCard = startingDeck[totalCards];
       startingDeck[totalCards] = startingDeck[randomChoice];
       startingDeck[randomChoice] = pulledCard
     }
+    //   if (Math.floor(Math.random()*(2)) === 1) {  // randomly select who goes first
+    //   this.player1.myTurn = true;
+    // } else {
+    //   this.player2.myTurn = true;
+    // }
+
     // startingDeck
-    this.player1.myDeck.unshift(startingDeck.slice(0, 27));
+    this.player1.myDeck = startingDeck.slice(0, 26);
     this.player1.shuffleDeck();                    // for extra random
-    this.player2.myDeck.unshift(startingDeck.slice(27, 53));
+    this.player2.myDeck = startingDeck.slice(26, 52);
     this.player1.shuffleDeck();
+    this.discardPile.unshift(startingDeck[52])
   }
 }
 
