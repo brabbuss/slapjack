@@ -1,7 +1,7 @@
 class Player {
-  constructor(player, otherPlayer) {
+  constructor(player) {
     this.player = player;
-    this.otherPlayer = otherPlayer;
+    this.otherPlayer;
     this.myTurn = false;
     this.myDeck = [];
     this.allCards = false;
@@ -63,11 +63,11 @@ class Player {
   }
   shuffleDeck() {
     var totalCards = this.myDeck.length;
-    while (totalCards === true) {
+    while (totalCards !== 0) {
       var randomChoice = Math.floor(Math.random() * totalCards--);
-      var swappedCard = this.myDeck[totalCards];
+      var pulledCard = this.myDeck[totalCards];
       this.myDeck[totalCards] = this.myDeck[randomChoice];
-      this.myDeck[randomChoice] = swappedCard
+      this.myDeck[randomChoice] = pulledCard
     }
     return this.myDeck;
   }
