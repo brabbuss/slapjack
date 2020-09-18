@@ -8,15 +8,15 @@ class Player {
     this.wins = 0;
     this.winner = false;
     if (this.player === "player1") {
-      this.otherPlayer = player2;
+      this.otherPlayer = "player2";
     } else {
-      this.otherPlayer = player1;
+      this.otherPlayer = "player1";
     }
   }
   dealCard(game) {
     if (this.myTurn === true && this.myDeck !== []) { // event listen for related key press in main
       // place on discard pile array
-      game.discardPile.unshift(this.myDeck[0]);
+      game.discardPile.unshift(this.myDeck[0]);  //  could call games own function here instead of repeating
       // pull card from my card
       this.myDeck.shift();
       if (this.myDeck === []) {
@@ -25,7 +25,7 @@ class Player {
     }
   }
   slapCard(game) {
-    if (slapValidation() === true) {
+    if (this.slapValidation() === true) {
       this.collectDiscardPile(game)
       this.myTurn = true
     } else {
@@ -46,13 +46,13 @@ class Player {
     }
   }
   collectDiscardPile(game) {
-    this.myDeck.concat(game.discardPile);
+    this.myDeck = this.myDeck.concat(game.discardPile);
     game.discardPile = [];
     this.shuffleDeck();
   }
   shuffleDeck() {
     var totalCards = this.myDeck.length;
-    while (totalCards === true) {
+    while (totalCards) {
       var randomChoice = Math.floor(Math.random() * totalCards--);
       var swappedCard = this.myDeck[totalCards];
       this.myDeck[totalCards] = this.myDeck[randomChoice];

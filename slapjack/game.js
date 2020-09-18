@@ -6,7 +6,7 @@ class Game {
   }
   startGame() {
     // shuffle and split
-    // choose random for first person
+    // choose random for first players turn!
   }
 }
 
