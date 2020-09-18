@@ -69,7 +69,8 @@ class Player {
     }
   }
   collectDiscardPile(game) {
-    this.myDeck.concat(game.discardPile);
+    // this.myDeck = this.myDeck + game.discardPile;
+    this.myDeck = this.myDeck.concat(game.discardPile);
     game.discardPile = [];
   }
   shuffleDeck() {
