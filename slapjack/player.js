@@ -1,40 +1,51 @@
 class Player {
-  constructor(player1or2) {
-    this.player = player1or2;
-    this.otherPlayer = "";
+  constructor(player, otherPlayer) {
+    this.player = player;
+    this.otherPlayer = otherPlayer;
     this.myTurn = false;
     this.myDeck = [];
     this.allCards = false;
     this.wins = 0;
-    this.winner = false;
-    if (this.player === "player1") {
-      this.otherPlayer = player2;
-    } else {
-      this.otherPlayer = player1;
-    }
+    this.winner = false;        // just in case
+    this.suddenDeathLeader = false
+    // this.suddenDeathLeader = !this.otherPlayer.suddenDeathLeader;
+    // if (this.player === "player1") {
+    //   this.otherPlayer = player2;
+    // } else {
+    //   this.otherPlayer = player1;
+    // }
   }
   dealCard(game) {
-    if (this.myTurn === true && this.myDeck !== []) { // event listen for related key press in main
-      // place on discard pile array
-      game.discardPile.unshift(this.myDeck[0]);
-      // pull card from my card
-      this.myDeck.shift();
-      if (this.myDeck === []) {
-        return this.myTurn = false;
+    if (game.suddenDeathMode !== true) {
+      game.discardPile.unshift(this.myDeck[0]);       // place on discard pile array
+      this.myDeck.shift();      // pull card from my card
+      this.myTurn = false;
+      this.checkSuddenDeath(game)
+    } else {
+      while (this.suddenDeathLeader === true) {
+        game.discardPile.unshift(this.myDeck[0]);
+        this.myDeck.shift();
+        this.checkSuddenDeath(game)
       }
     }
   }
   slapCard(game) {
-    if (slapValidation() === true) {
+    if (this.slapValidation(game) === true && this.suddenDeathLeader === true) {
+      this.collectDiscardPile(game)
+      game.gameOver = true; //if you successfully slap as leader. you win
+    } else if (this.slapValidation(game) === true) {  // legal slap
       this.collectDiscardPile(game)
       this.myTurn = true
+      return true
     } else {
-      this.otherPlayer.myDeck.unshift(this.myDeck[0]);
+      this.otherPlayer.myDeck.unshift(this.myDeck[0]);  //illegal slap
       this.myDeck.shift()
       this.myturn = false;
+      return false
     }
+    this.checkSuddenDeath(game)
   }
-  slapValidation() {
+  slapValidation(game) {
     if (validBasicSlaps.indexOf(game.discardPile[0]) !== -1) {  //  if the string at [0] is not included in basic slaps array, = -1 (void)
       return true;
     } else if (game.discardPile[0].charAt(3) === game.discardPile[1].charAt(3)) {  //  leveraging naming convention to match
@@ -60,6 +71,20 @@ class Player {
     }
     return this.myDeck;
   }
+  checkSuddenDeath(game) {
+    if (this.myDeck === [] || this.otherPlayer.myDeck === []) {
+      game.suddenDeathMode = true;
+      while (game.suddenDeathMode === true) {
+        if (this.myDeck !== []) {
+          this.suddenDeathLeader = true; //who's leader?
+        };
+      };
+    } else if (this.myDeck !== [] && this.otherPlayer.myDeck !== []) {
+      game.suddenDeathMode === false;
+    }
+  }
+
+
   // should this be a method of the game???
   winCheck() {
     if (this.myDeck.length === 53) { // check win rules
