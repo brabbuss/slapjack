@@ -6,7 +6,6 @@ class Game {
     this.suddenDeathMode = false;
     this.gameOver = false;
     this.allCards = startingDeck;
-
   }
   startGame() {
     this.player1.otherPlayer = this.player2;
@@ -17,9 +16,6 @@ class Game {
     } else {
       this.player2.myTurn = true;
     }
-  }
-  checkSuddenDeath() {
-    // while
   }
   dealStartingCards() {
     var totalCards = this.allCards.length;
@@ -35,6 +31,22 @@ class Game {
     this.player1.shuffleDeck();
     this.discardPile.unshift(this.allCards[52])
   }
+
+  checkSuddenDeath() {
+    if (this.player1.myDeck[0] === undefined || this.player2.myDeck[0] === undefined) {
+      this.suddenDeathMode = true;
+      while (this.suddenDeathMode === true) {
+        if (this.player1.myDeck[0] !== undefined) {
+          this.player1.suddenDeathLeader = true; //who's leader?
+        } else {
+          this.player2.suddenDeathLeader = true;
+        }
+      };
+    } else if (this.player1.myDeck[0] !== undefined && this.player2.myDeck[0] !== undefined) {
+      game.suddenDeathMode === false;
+    }
+  }
+
   winCheck() {
     if (this.myDeck.length === 53) { // check win rules
       this.winner = true;

@@ -20,6 +20,7 @@ class Player {
     } else {
       console.log(`not your turn ${this.player}`);
       while (this.suddenDeathLeader === true) {
+        Thread.sleep(0);
         game.discardPile.unshift(this.myDeck[0]);
         this.myDeck.shift();
         this.checkSuddenDeath(game)
@@ -38,10 +39,9 @@ class Player {
     } else {
       this.otherPlayer.myDeck.unshift(this.myDeck[0]);  //illegal slap
       this.myDeck.shift()
-      this.myturn = false;
+      this.myTurn = false;
       return false
     }
-    this.checkSuddenDeath(game)
   }
   slapValidation(game) {
     if (validBasicSlaps.indexOf(game.discardPile[0]) !== -1) {  //  if the string at [0] is not included in basic slaps array, = -1 (void)
@@ -76,16 +76,16 @@ class Player {
     }
     return this.myDeck;
   }
-  checkSuddenDeath(game) {
-    if (this.myDeck === [] || this.otherPlayer.myDeck === []) {
-      game.suddenDeathMode = true;
-      while (game.suddenDeathMode === true) {
-        if (this.myDeck !== []) {
-          this.suddenDeathLeader = true; //who's leader?
-        };
-      };
-    } else if (this.myDeck !== [] && this.otherPlayer.myDeck !== []) {
-      game.suddenDeathMode === false;
-    }
-  }
+  // checkSuddenDeath(game) {
+  //   if (this.myDeck === [] || this.otherPlayer.myDeck === []) {
+  //     game.suddenDeathMode = true;
+  //     while (game.suddenDeathMode === true) {
+  //       if (this.myDeck !== []) {
+  //         this.suddenDeathLeader = true; //who's leader?
+  //       };
+  //     };
+  //   } else if (this.myDeck !== [] && this.otherPlayer.myDeck !== []) {
+  //     game.suddenDeathMode === false;
+  //   }
+  // }
 }
