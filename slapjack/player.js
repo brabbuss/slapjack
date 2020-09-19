@@ -4,33 +4,31 @@ class Player {
     this.otherPlayer;
     this.myTurn = false;
     this.myDeck = [];
-    this.allCards = false;
     this.wins = 0;
     this.winner = false;        // just in case
     this.suddenDeathLeader = false
   }
   dealCard(game) {
-    console.log(game.suddenDeathMode);
     if (game.suddenDeathMode !== true && this.myTurn === true) {
       game.discardPile.unshift(this.myDeck[0]);       // place on discard pile array
       this.myDeck.shift();      // pull card from my card
       this.myTurn = false;
       this.otherPlayer.myTurn = true;
-      this.checkSuddenDeath(game)
     } else {
       console.log(`not your turn ${this.player}`);
-      while (this.suddenDeathLeader === true) {
-        Thread.sleep(0);
+      if (this.suddenDeathLeader === true) {
         game.discardPile.unshift(this.myDeck[0]);
         this.myDeck.shift();
-        this.checkSuddenDeath(game)
       }
     }
   }
-  slapCard(game) {
+  slapCard(player, game) {
     if (this.slapValidation(game) === true && this.suddenDeathLeader === true) {
       this.collectDiscardPile(game)
+      player.winner = true;
       game.gameOver = true; //if you successfully slap as leader. you win
+    } else if (this.slapValidation(game) === false && this.suddenDeathLeader === false) {
+      game.gameOver = true;
     } else if (this.slapValidation(game) === true) {  // legal slap
       this.collectDiscardPile(game)
       this.shuffleDeck();
@@ -76,16 +74,4 @@ class Player {
     }
     return this.myDeck;
   }
-  // checkSuddenDeath(game) {
-  //   if (this.myDeck === [] || this.otherPlayer.myDeck === []) {
-  //     game.suddenDeathMode = true;
-  //     while (game.suddenDeathMode === true) {
-  //       if (this.myDeck !== []) {
-  //         this.suddenDeathLeader = true; //who's leader?
-  //       };
-  //     };
-  //   } else if (this.myDeck !== [] && this.otherPlayer.myDeck !== []) {
-  //     game.suddenDeathMode === false;
-  //   }
-  // }
 }

@@ -2,6 +2,7 @@ class Game {
   constructor() {
     this.player1 = new Player("player1");
     this.player2 = new Player("player2");
+    this.playerArray = [this.player1, this.player2]
     this.discardPile = [];
     this.suddenDeathMode = false;
     this.gameOver = false;
@@ -35,7 +36,7 @@ class Game {
   checkSuddenDeath() {
     if (this.player1.myDeck[0] === undefined || this.player2.myDeck[0] === undefined) {
       this.suddenDeathMode = true;
-      while (this.suddenDeathMode === true) {
+      if (this.suddenDeathMode === true) {
         if (this.player1.myDeck[0] !== undefined) {
           this.player1.suddenDeathLeader = true; //who's leader?
         } else {
@@ -43,15 +44,29 @@ class Game {
         }
       };
     } else if (this.player1.myDeck[0] !== undefined && this.player2.myDeck[0] !== undefined) {
-      game.suddenDeathMode === false;
+      this.suddenDeathMode === false;
     }
   }
 
   winCheck() {
-    if (this.myDeck.length === 53) { // check win rules
-      this.winner = true;
-      this.wins++
-      return
+    for (var i = 0; i < this.playerArray.length; i++) {
+      if (this.playerArray[i].winner === true) {
+        this.playerArray[i].wins++
+        return true;
+      }
+    }
+  }
+
+  resetGame() {
+    for (var i = 0; i < this.playerArray.length; i++) {
+      var i = this.playerArray[i]
+      i.player = i.player;
+      i.otherPlayer = i.otherPlayer;
+      i.myTurn = false;
+      i.myDeck = [];
+      i.wins = i.wins;
+      i.winner = false;
+      i.suddenDeathLeader = false
     }
   }
 }
