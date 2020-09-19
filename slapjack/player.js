@@ -31,7 +31,7 @@ class Player {
       game.gameOver = true;
     } else if (this.slapValidation(game) === true) {  // legal slap
       this.collectDiscardPile(game)
-      this.shuffleDeck();
+      game.shuffleDeck(this.myDeck);
       this.myTurn = true
       return true
     } else {
@@ -64,14 +64,14 @@ class Player {
     this.myDeck = this.myDeck.concat(game.discardPile);
     game.discardPile = [];
   }
-  shuffleDeck() {
-    var totalCards = this.myDeck.length;
-    while (totalCards !== 0) {
-      var randomIndex = Math.floor(Math.random() * totalCards--);
-      var pulledCard = this.myDeck[totalCards];
-      this.myDeck[totalCards] = this.myDeck[randomIndex];
-      this.myDeck[randomIndex] = pulledCard
-    }
-    return this.myDeck;
-  }
+  // shuffleDeck() {
+  //   var totalCards = this.myDeck.length;
+  //   while (totalCards !== 0) {
+  //     var randomIndex = Math.floor(Math.random() * totalCards--);
+  //     var pulledCard = this.myDeck[totalCards];
+  //     this.myDeck[totalCards] = this.myDeck[randomIndex];
+  //     this.myDeck[randomIndex] = pulledCard
+  //   }
+  //   return this.myDeck;
+  // }
 }

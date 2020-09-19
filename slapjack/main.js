@@ -1,6 +1,6 @@
 var game = new Game()
 
-document.addEventListener('keydown', function dealACard(event) {
+document.addEventListener('keydown', function dealOrSLap(event) {
   if (event.keyCode === 81) { // q
     game.player1.dealCard(game);
   }

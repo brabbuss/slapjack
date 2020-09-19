@@ -26,32 +26,18 @@ class Game {
       var randomIndex = Math.floor(Math.random() * totalCards--);
       var pulledCard = cardArray[totalCards];
       cardArray[totalCards] = cardArray[randomIndex];
-      cardArray[randomIndex] = pulledCard
+      cardArray[randomIndex] = pulledCard;
     }
+    return cardArray
   }
 
   dealNewRound() {
     this.player1.myDeck = this.allCards.slice(0, 26);
-    this.player1.shuffleDeck();
+    this.shuffleDeck(this.player1.myDeck);
     this.player2.myDeck = this.allCards.slice(26, 52);
-    this.player2.shuffleDeck();
+    this.shuffleDeck(this.player2.myDeck);
     this.discardPile.unshift(this.allCards[52])
   }
-
-  // dealStartingCards() {
-  //   var totalCards = this.allCards.length;
-  //   while (totalCards !== 0) {
-  //     var randomIndex = Math.floor(Math.random() * totalCards--);
-  //     var pulledCard = this.allCards[totalCards];
-  //     this.allCards[totalCards] = this.allCards[randomIndex];
-  //     this.allCards[randomIndex] = pulledCard
-  //   }
-  //   this.player1.myDeck = this.allCards.slice(0, 26);
-  //   this.player1.shuffleDeck();                    // for extra random
-  //   this.player2.myDeck = this.allCards.slice(26, 52);
-  //   this.player1.shuffleDeck();
-  //   this.discardPile.unshift(this.allCards[52])
-  // }
 
   checkSuddenDeath() {
     if (this.player1.myDeck[0] === undefined || this.player2.myDeck[0] === undefined) {
