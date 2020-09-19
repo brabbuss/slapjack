@@ -26,19 +26,24 @@ class Player {
     if (this.slapValidation(game) === true && this.suddenDeathLeader === true) {
       this.collectDiscardPile(game)
       player.winner = true;
-      game.gameOver = true; //if you successfully slap as leader. you win
+      game.gameOver = true;
+      //if you successfully slap as leader. you win
     } else if (this.slapValidation(game) === false && this.suddenDeathLeader === false) {
       game.gameOver = true;
     } else if (this.slapValidation(game) === true) {  // legal slap
       this.collectDiscardPile(game)
-      game.shuffleDeck(this.myDeck);
-      this.myTurn = true
       return true
     } else {
-      this.otherPlayer.myDeck.unshift(this.myDeck[0]);  //illegal slap
-      this.myDeck.shift()
-      this.myTurn = false;
-      return false
+      if (game.discardPile === undefined) {
+        alert("bad slap - no cards to give")
+        // TODO slaps w/empty - might be way to skip suddendeath mode COMPLEXITIES!???
+        game.gameOver = true;
+      } else {
+        this.otherPlayer.myDeck.unshift(this.myDeck[0]);  //illegal slap
+        this.myDeck.shift()
+        this.myTurn = false;
+        return false
+      }
     }
   }
   slapValidation(game) {
@@ -63,15 +68,8 @@ class Player {
   collectDiscardPile(game) {
     this.myDeck = this.myDeck.concat(game.discardPile);
     game.discardPile = [];
+    game.shuffleDeck(this.myDeck);
+    this.myTurn = true
+    this.otherPlayer.myTurn = false;
   }
-  // shuffleDeck() {
-  //   var totalCards = this.myDeck.length;
-  //   while (totalCards !== 0) {
-  //     var randomIndex = Math.floor(Math.random() * totalCards--);
-  //     var pulledCard = this.myDeck[totalCards];
-  //     this.myDeck[totalCards] = this.myDeck[randomIndex];
-  //     this.myDeck[randomIndex] = pulledCard
-  //   }
-  //   return this.myDeck;
-  // }
 }
