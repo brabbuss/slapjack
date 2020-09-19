@@ -1,9 +1,4 @@
-// document.onload = newGame()
-
-function newGame() {
-  var game = new Game();
-  game.startGame()
-}
+var game = new Game()
 
 document.addEventListener('keydown', function dealACard(event) {
   if (event.keyCode === 81) { // q
@@ -25,14 +20,15 @@ function checkGameStatus() {
   game.checkSuddenDeath();
   game.winCheck();
   if (game.winCheck() === true) {
-    newRound();
+    startNewRound();
   }
 }
 
-function newRound() {
-  game.resetGame();
+function startNewRound() {
+  game.resetPlayerStats();
+  game.setupNewRound();
+  game.shuffleDeck(game.allCards)
   game.dealNewRound();
 }
-
 
 // if my turn, highlight deck and card with pulse?
