@@ -64,16 +64,14 @@ class Game {
   dealCard(player) {
     if (player.myDeck[0] !== undefined) {
       if (player.myTurn === true) {
-        this.discardPile.unshift(player.myDeck[0]);       // place on discard pile array
-        player.myDeck.shift();      // pull card from my card
+        this.discardPile.unshift(player.myDeck[0]);
+        player.myDeck.shift();
         game.referee = {[player.player]: "normal-deal"}
       } else {
-        console.log(`not your turn ${player.player}`);
         game.referee = {[player.player]: "not-your-turn-deal"}
       }
-    } else if (player.myDeck[0] === undefined) {  //sudden death
+    } else if (player.myDeck[0] === undefined) {
       game.referee = {[player.player]: "no-more-cards-deal"}
-      console.log(`All out of cards ${player.player}`);
     }
   }
 
@@ -83,7 +81,7 @@ class Game {
   }
 
   giveAwayCard(player) {
-    player.otherPlayer.myDeck.push(player.myDeck[0]);  //illegal slap
+    player.otherPlayer.myDeck.push(player.myDeck[0]);
     player.myDeck.shift()
   }
 
@@ -92,7 +90,7 @@ class Game {
       game.gameOver = true;
     } else if (this.slapValidation(player) === false && player.myDeck.length === 0) {  //endgame slap
       game.gameOver = true;
-    } else if (this.slapValidation(player) === true) {  // legal slap
+    } else if (this.slapValidation(player) === true) {
       game.referee = {[player.player]: "valid-slap"}
     } else if (this.slapValidation(player) === false) {
       game.referee = {[player.player]: "invalid-slap"}
@@ -100,7 +98,7 @@ class Game {
   }
 
   slapValidation(player) {
-    if (this.discardPile.length === 0) { //empty deck
+    if (this.discardPile.length === 0) {
       console.log("empty deck");
       return false;
     } else if (this.discardPile.length === 1) {

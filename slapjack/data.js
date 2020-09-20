@@ -6,10 +6,6 @@ var validBasicSlaps = [
 "wild",
 ]
 
-// var validAdvancedSlaps = logic
-// means if [0 and 3] contains [i] then yes sandwich
-
-
 var startingDeck =
 [
 "b-01",
