@@ -4,7 +4,6 @@ class Game {
     this.player2 = new Player("player2");
     this.playerArray = [this.player1, this.player2]
     this.discardPile = [];
-    this.suddenDeathMode = false;
     this.gameOver = false;
     this.allCards = startingDeck;
   }
@@ -37,21 +36,6 @@ class Game {
     this.player2.myDeck = this.allCards.slice(26, 52);
     this.shuffleDeck(this.player2.myDeck);
     this.discardPile.unshift(this.allCards[52])
-  }
-
-  checkSuddenDeath() {
-    if (this.player1.myDeck[0] === undefined || this.player2.myDeck[0] === undefined) {
-      this.suddenDeathMode = true;
-      if (this.suddenDeathMode === true) {
-        if (this.player1.myDeck[0] !== undefined) {
-          this.player1.suddenDeathLeader = true; //who's leader?
-        } else {
-          this.player2.suddenDeathLeader = true;
-        }
-      };
-    } else if (this.player1.myDeck[0] !== undefined && this.player2.myDeck[0] !== undefined) {
-      this.suddenDeathMode === false;
-    }
   }
 
   winCheck() {

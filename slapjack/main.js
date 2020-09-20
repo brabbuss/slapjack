@@ -8,14 +8,21 @@ document.addEventListener('keydown', function dealOrSLap(event) {
     game.player2.dealCard(game);
   }
   if (event.keyCode === 70) { // f
-    game.player1.slapCard(game.player1, game);
+    game.player1.slapCard(game);
   }
   if (event.keyCode === 74) { // j
-    game.player1.slapCard(game.player2, game);
+    game.player2.slapCard(game);
   }
   checkGameStatus();
   updateDisplayedElements();
 })
+//slap
+//if validation = true
+// then game.collect/check turns(goodslap) - use fxn pasted in slack
+// if false then check turns(badslap)
+// dont allow deal if no cards - check cards fxn first
+//  modify slap casvade if no cards in deck
+
 
 document.querySelector("#main__get-started__button").addEventListener('click', hideTutorialStartGame)
 
@@ -58,7 +65,6 @@ function whosTurnGlow() {
 //          Gameplay Functionality
 
 function checkGameStatus() {
-  game.checkSuddenDeath();
   game.winCheck();
   if (game.winCheck() === true) {
     startNewRound();
