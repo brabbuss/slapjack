@@ -11,25 +11,44 @@
   <main class="main">
     <div class="deck__block">
       <section id="deck__player1__image__container" class="deck__image__container">
-        <img src="./assets/back.png">
+        <img id="deck__player1__image" src="./assets/back.png">
       </section>
-      <p>WINS</p>
+      <p id="deck__player1__wins">0 WINS</p>
+      <p id="deck__player1__cards">0 CARDS</p>
     </div>
     <div class="deck__block">
       <div id="deck__discard-pile" class="deck__image__container">
-        <img src="./assets/g-01.png">
+        <img id="deck__discard__asset" class="--hidden" src="./assets/g-01.png">
       </div>
+      <p id="deck__discard__cards">53 CARDS</p>
     </div>
     <div class="deck__block">
       <section id="deck__player2__image__container" class="deck__image__container">
-        <img src="./assets/back.png">
+        <img id="deck__player2__image" src="./assets/back.png">
       </section>
-      <p>WINS</p>
+      <p id="deck__player2__wins">0 WINS</p>
+      <p id="deck__player2__cards">0 CARDS</p>
     </div>
+    <article id="main__get-started">
+      <h1>Care for a game of SlapJack?</h1>
+        <div>
+          <section>
+            <h3>Player 1</h3>
+            <h5>Deal: "q"</h5>
+            <h5>Slap: "f"</h5>
+          </section>
+          <section>
+            <h3>Player 2</h3>
+            <h5>Deal: "p"</h5>
+            <h5>Slap: "j"</h5>
+          </section>
+        </div>
+      <button id="main__get-started__button">START</button>
+    </article>>
   </main>
 </body>
-  <script src="data.js"></script>
-  <script src="main.js"></script>
   <script src="player.js"></script>
   <script src="game.js"></script>
+  <script src="data.js"></script>
+  <script src="main.js"></script>
 </html>
