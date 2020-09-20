@@ -39,8 +39,8 @@ function updateDisplayedElements() {
 }
 
 function updateWins() {
-  document.querySelector("p").innerText = `${game.player1.wins} WINS`
-  document.querySelector("p").innerText = `${game.player1.wins} WINS`
+  document.querySelector("#deck__player1__wins").innerText = `${game.player1.wins} WINS`
+  document.querySelector("#deck__player2__wins").innerText = `${game.player2.wins} WINS`
 }
 
 function displayCard() {
