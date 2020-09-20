@@ -41,8 +41,6 @@ class Game {
   winCheck() {
     for (var i = 0; i < this.playerArray.length; i++) {
       if (game.gameOver === true && this.playerArray[i].myDeck[0] === undefined) {
-        // this.winner = true; //TODO  only assigns win to this player, not other - this is game function to target opposite player
-        // this.wins++;
         this.playerArray[i].otherPlayer.wins += 1;
         return true;
       }
@@ -58,8 +56,43 @@ class Game {
       i.myDeck = [];
       i.wins = i.wins;
       i.winner = false;
-      i.suddenDeathLeader = false;
       this.discardPile = [];
     }
+  }
+
+  dealCard(player) {
+    if (player.myDeck[0] !== undefined) {
+      if (player.myTurn === true) {
+        this.discardPile.unshift(player.myDeck[0]);       // place on discard pile array
+        player.myDeck.shift();      // pull card from my card
+        player.loseTurn();
+      } else {
+        console.log(`not your turn ${player.player}`);
+      }
+    } else if (player.myDeck[0] === undefined) {  //sudden death
+      player.loseTurn();
+      console.log(`All out of cards ${player.player}`);
+    }
+  }
+}
+
+slapCard(game) {
+  if (this.slapValidation(game) === true && this.otherPlayer.myDeck[0] === undefined) {
+    this.collectDiscardPile(game)
+    game.gameOver = true;
+    alert("game over")
+    //if you successfully slap as leader. you win
+  } else if (this.slapValidation(game) === false && this.myDeck[0] === undefined) {
+    alert("game over")
+    game.gameOver = true;
+  } else if (this.slapValidation(game) === true) {  // legal slap
+    this.collectDiscardPile(game);
+    console.log(game.player1.myDeck, game.player2.myDeck);
+    return true
+  } else if (this.slapValidation(game) === false) {
+    this.otherPlayer.myDeck.unshift(this.myDeck[0]);  //illegal slap
+    this.myDeck.shift()
+    console.log(game.player1.myDeck, game.player2.myDeck);
+    return false
   }
 }

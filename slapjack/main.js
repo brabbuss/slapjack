@@ -2,17 +2,18 @@ var game = new Game()
 
 document.addEventListener('keydown', function dealOrSLap(event) {
   if (event.keyCode === 81) { // q
-    game.player1.dealCard(game);
+    game.dealCard(game.player1);
   }
   if (event.keyCode === 80) {// p
-    game.player2.dealCard(game);
+    game.dealCard(game.player2);
   }
   if (event.keyCode === 70) { // f
-    game.player1.slapCard(game);
+    game.slapCard(game.player1);
   }
   if (event.keyCode === 74) { // j
-    game.player2.slapCard(game);
+    game.slapCard(game.player2);
   }
+  // collectDiscardPile
   checkGameStatus();
   updateDisplayedElements();
 })

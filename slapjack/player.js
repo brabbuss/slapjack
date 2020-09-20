@@ -18,20 +18,20 @@ class Player {
     this.otherPlayer.myTurn = true
   }
 
-  dealCard(game) {
-    if (this.myDeck[0] !== undefined) {
-      if (this.myTurn === true) {
-        game.discardPile.unshift(this.myDeck[0]);       // place on discard pile array
-        this.myDeck.shift();      // pull card from my card
-        this.loseTurn();
-      } else {
-        console.log(`not your turn ${this.player}`);
-      }
-    } else if (this.myDeck[0] === undefined) {  //sudden death
-      this.loseTurn();
-      console.log(`All out of cards ${this.player}`);
-    }
-  }
+  // dealCard(game) {
+  //   if (this.myDeck[0] !== undefined) {
+  //     if (this.myTurn === true) {
+  //       game.discardPile.unshift(this.myDeck[0]);       // place on discard pile array
+  //       this.myDeck.shift();      // pull card from my card
+  //       this.loseTurn();
+  //     } else {
+  //       console.log(`not your turn ${this.player}`);
+  //     }
+  //   } else if (this.myDeck[0] === undefined) {  //sudden death
+  //     this.loseTurn();
+  //     console.log(`All out of cards ${this.player}`);
+  //   }
+  // }
 
   slapCard(game) {
     if (this.slapValidation(game) === true && this.otherPlayer.myDeck[0] === undefined) {
