@@ -53,12 +53,15 @@ class Game {
 
   dealCard(player) {
     if (player.myDeck[0] !== undefined) {
-      if (player.myTurn === true) {
+      if (player.myTurn === true && player.otherPlayer.myDeck[0] === undefined) {
+        this.discardPile.unshift(player.myDeck[0]);
+        player.myDeck.shift();
+        game.referee = {[player.player]: "endgame-deal"}
+      } else if (player.myTurn === true) {
         this.discardPile.unshift(player.myDeck[0]);
         player.myDeck.shift();
         game.referee = {[player.player]: "normal-deal"}
-      } else {
-        game.referee = {[player.player]: "not-your-turn-deal"}
+      } else {game.referee = {[player.player]: "not-your-turn-deal"}
       }
     } else if (player.myDeck[0] === undefined) {
       game.referee = {[player.player]: "no-more-cards-deal"}

@@ -2,7 +2,6 @@ var game = new Game()
 
 // Event Listener
 
-// document.onload = game.loadSavedGame();
 document.addEventListener('keydown', playerKeyEvent)
 document.querySelector("#main__get-started__button").addEventListener('click', hideTutorialStartGame)
 
@@ -102,7 +101,9 @@ function updatePlayerStats(player) {
     player.loseTurn();
   } else if (game.referee[player.player] === "normal-deal") {
     player.loseTurn();
-  } else if (game.referee[player.player] === "no-more-cards-to-deal") {
+  } else if (game.referee[player.player] === "endgame-deal") {
+    player.keepTurn()
+  } else if (game.referee[player.player] === "no-more-cards-deal") {
     player.loseTurn();
   }
 }
