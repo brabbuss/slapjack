@@ -73,11 +73,12 @@ function updateTurnGlow() {
 }
 
 function updatePlayerDeckImage(player) {
-  if (player.myDeck.length === 0) {
-    console.log("HIDE DECK");
-    document.querySelector(`#deck__${player.player}__image__container`).classList.add("--hidden")
-  } else if (player.myDeck.length !== 0) {
-    document.querySelector(`#deck__${player.player}__image__container`).classList.remove("--hidden")
+  for (var i = 0; i < game.playerArray.length; i++) {
+    if (game.playerArray[i].myDeck.length === 0) {
+      document.querySelector(`#deck__${game.playerArray[i].player}__image__container`).classList.add("--hidden")
+    } else if (game.playerArray[i].myDeck.length !== 0) {
+      document.querySelector(`#deck__${game.playerArray[i].player}__image__container`).classList.remove("--hidden")
+    }
   }
 };
 
@@ -85,7 +86,6 @@ function updatePlayerDeckImage(player) {
 //          Gameplay Functionality
 
 function updatePlayerStats(player) {
-  // console.log(game.referee[player.player]);
   if (game.referee[player.player] === "valid-slap") {
     game.collectDiscardPile(player);
     game.shuffleDeck(player.myDeck);
