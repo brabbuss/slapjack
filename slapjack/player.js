@@ -19,14 +19,17 @@ class Player {
   }
 
   dealCard(game) {
-    if (this.myTurn === true  && this.otherPlayer.myDeck !== undefined) {
-      game.discardPile.unshift(this.myDeck[0]);       // place on discard pile array
-      this.myDeck.shift();      // pull card from my card
+    if (this.myDeck[0] !== undefined) {
+      if (this.myTurn === true) {
+        game.discardPile.unshift(this.myDeck[0]);       // place on discard pile array
+        this.myDeck.shift();      // pull card from my card
+        this.loseTurn();
+      } else {
+        console.log(`not your turn ${this.player}`);
+      }
+    } else if (this.myDeck[0] === undefined) {  //sudden death
       this.loseTurn();
-    } else if (this.myTurn === true && this.myDeck === undefined) {  //sudden death
       console.log(`All out of cards ${this.player}`);
-    } else {
-      console.log(`not your turn ${this.player}`);
     }
   }
 
@@ -55,24 +58,36 @@ class Player {
   slapValidation(game) {
     if (game.discardPile[0] === undefined) { //empty deck
       console.log("empty deck");
-      return;
+      return false;
     } else if (game.discardPile.length === 1) {
       if (validBasicSlaps.indexOf(game.discardPile[0]) !== -1) {  //  if the string at [0] is not included in basic slaps array, = -1 (void)
-        console.log("trump card");
+        console.log("jack or trump");
         this.keepTurn()
         return true;
-      } else if (game.discardPile.length === 2) {
-        if (game.discardPile[0].charAt(3) === game.discardPile[1].charAt(3) || validBasicSlaps.indexOf(game.discardPile[0]) !== -1) {  //  leveraging naming convention to match
-          console.log("doubles");
-          this.keepTurn()
-          return true;
-        }
-      } else if (game.discardPile.length > 2) {
-        if (game.discardPile[0].charAt(3) === game.discardPile[2].charAt(3) || game.discardPile[0].charAt(3) === game.discardPile[1].charAt(3) || validBasicSlaps.indexOf(game.discardPile[0]) !== -1) {
-          console.log("sandwich");
-          this.keepTurn()
-          return true;
-        }
+      } else if (validBasicSlaps.indexOf(game.discardPile[0]) === -1) {
+        console.log("bad slap trump cascade");
+        this.loseTurn()
+        return false;
+      }
+    } else if (game.discardPile.length === 2) {
+      if (game.discardPile[0].charAt(3) === game.discardPile[1].charAt(3) || validBasicSlaps.indexOf(game.discardPile[0]) !== -1) {  //  leveraging naming convention to match
+        console.log("doubles");
+        this.keepTurn()
+        return true;
+      } else {
+        console.log("bad slap dbl cascade");
+        this.loseTurn()
+        return false;
+      }
+    } else if (game.discardPile.length > 2) {
+      if (game.discardPile[0].charAt(3) === game.discardPile[2].charAt(3) || game.discardPile[0].charAt(3) === game.discardPile[1].charAt(3) || validBasicSlaps.indexOf(game.discardPile[0]) !== -1) {
+        console.log("sandwich");
+        this.keepTurn()
+        return true;
+      } else {
+        console.log("bad slap sandwich cascade");
+        this.loseTurn()
+        return false;
       }
     }
   }
@@ -80,6 +95,6 @@ class Player {
   collectDiscardPile(game) {
     this.myDeck = this.myDeck.concat(game.discardPile);
     game.discardPile = [];
-    game.shuffleDeck(this.myDeck);
+    game.shuffleDeck(game.this.myDeck);
   }
 }
