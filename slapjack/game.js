@@ -21,15 +21,15 @@ class Game {
     }
   }
 
-  shuffleDeck(cardArray) {
-    var totalCards = cardArray.length;
-    while (totalCards !== 0) {
-      var randomIndex = Math.floor(Math.random() * totalCards--);
-      var pulledCard = cardArray[totalCards];
-      cardArray[totalCards] = cardArray[randomIndex];
-      cardArray[randomIndex] = pulledCard;
+  resetPlayerStats() {
+    for (var i = 0; i < this.playerArray.length; i++) {
+      var i = this.playerArray[i]
+      i.myTurn = false;
+      i.myDeck = [];
+      i.winner = false;
     }
-    return cardArray
+    this.discardPile = [];
+    this.gameOver = false;
   }
 
   dealNewRound() {
@@ -40,23 +40,15 @@ class Game {
     this.discardPile.unshift(this.allCards[52])
   }
 
-  winCheck() {
-    for (var i = 0; i < this.playerArray.length; i++) {
-      if (game.gameOver === true && this.playerArray[i].myDeck[0] === undefined) {
-        this.playerArray[i].otherPlayer.wins += 1;
-        return true;
-      }
+  shuffleDeck(cardArray) {
+    var totalCards = cardArray.length;
+    while (totalCards !== 0) {
+      var randomIndex = Math.floor(Math.random() * totalCards--);
+      var pulledCard = cardArray[totalCards];
+      cardArray[totalCards] = cardArray[randomIndex];
+      cardArray[randomIndex] = pulledCard;
     }
-  }
-
-  resetPlayerStats() {
-    for (var i = 0; i < this.playerArray.length; i++) {
-      var i = this.playerArray[i]
-      i.myTurn = false;
-      i.myDeck = [];
-      i.winner = false;
-    }
-    this.discardPile = [];
+    return cardArray
   }
 
   dealCard(player) {
@@ -71,16 +63,6 @@ class Game {
     } else if (player.myDeck[0] === undefined) {
       game.referee = {[player.player]: "no-more-cards-deal"}
     }
-  }
-
-  collectDiscardPile(player) {
-    player.myDeck = player.myDeck.concat(this.discardPile);
-    this.discardPile = [];
-  }
-
-  giveAwayCard(player) {
-    player.otherPlayer.myDeck.push(player.myDeck[0]);
-    player.myDeck.shift()
   }
 
   slapCard(player) {
@@ -125,12 +107,33 @@ class Game {
       }
     }
   }
+
+  collectDiscardPile(player) {
+    player.myDeck = player.myDeck.concat(this.discardPile);
+    this.discardPile = [];
+  }
+
+  giveAwayCard(player) {
+    player.otherPlayer.myDeck.push(player.myDeck[0]);
+    player.myDeck.shift()
+  }
+
+  winCheck() {
+    for (var i = 0; i < this.playerArray.length; i++) {
+      if (this.gameOver === true && this.playerArray[i].myDeck[0] === undefined) {
+        this.playerArray[i].otherPlayer.wins += 1;
+        return true;
+      }
+    }
+  }
+
   saveGameToStorage() {
     this.storedData = [];
     game.player1.saveWinsToStorage();
     game.player2.saveWinsToStorage();
     localStorage.setItem('savedWins', JSON.stringify(this.storedData));
   }
+
   loadSavedGame() {
     if (localStorage.getItem("savedWins") !== undefined) {
       this.storedData = JSON.parse(localStorage.getItem("savedWins"));
