@@ -58,6 +58,7 @@ class Player {
   slapValidation(game) {
     if (game.discardPile[0] === undefined) { //empty deck
       console.log("empty deck");
+      this.loseTurn();
       return false;
     } else if (game.discardPile.length === 1) {
       if (validBasicSlaps.indexOf(game.discardPile[0]) !== -1) {  //  if the string at [0] is not included in basic slaps array, = -1 (void)
