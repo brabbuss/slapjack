@@ -86,6 +86,25 @@ p {
   margin-top: 0px;
 }
 
+.--danger-text {
+  color: red;
+  animation-name: pulse;
+  animation-duration: .8s;
+  animation-iteration-count: infinite;
+  transition: all .1s ease-out;
+  font-weight: bolder;
+}
+
+@keyframes pulse {
+  0% {
+  }
+  50% {
+    transform: scale(1.2);
+  }
+  100% {
+  }
+}
+
 #main__get-started {
   display: flex;
   position: absolute;
