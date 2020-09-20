@@ -1,31 +1,26 @@
 var game = new Game()
 
-document.addEventListener('keydown', function playerEvent(event) {
-  if (event.keyCode === 81 || event.keyCode === 70) {
-    if (event.keyCode === 81) { // q
-      game.dealCard(game.player1);
-    } else if (event.keyCode === 70) { // f
-      game.slapCard(game.player1);
-    }
-    // updatePlayerStats(game.player1)
-    updateGame(game.player1);
-  } else if (event.keyCode === 80 || event.keyCode === 74) {
-    if (event.keyCode === 80) {// p
-      game.dealCard(game.player2);
-    } else if (event.keyCode === 74) { // j
-      game.slapCard(game.player2);
-    }
-    // updatePlayerStats(game.player2)
-    updateGame(game.player2);
-  }
-})
+// document.addEventListener('keydown', function playerEvent(event) {
+//   if (event.keyCode === 81 || event.keyCode === 70) {
+//     if (event.keyCode === 81) { // q
+//       game.dealCard(game.player1);
+//     } else if (event.keyCode === 70) { // f
+//       game.slapCard(game.player1);
+//     }
+//     updateGame(game.player1);
+//   } else if (event.keyCode === 80 || event.keyCode === 74) {
+//     if (event.keyCode === 80) {// p
+//       game.dealCard(game.player2);
+//     } else if (event.keyCode === 74) { // j
+//       game.slapCard(game.player2);
+//     }
+//     updateGame(game.player2);
+//   }
+// })
 
-function updateGame(player) {
-  updatePlayerStats(player)
-  updateDisplayedElements(player);
-  checkWinStatus();
-}
+// Event Listener
 
+document.addEventListener('keydown', playerKeyEvent)
 document.querySelector("#main__get-started__button").addEventListener('click', hideTutorialStartGame)
 
 // Functions That Update HTML Visually
@@ -82,8 +77,32 @@ function updatePlayerDeckImage(player) {
   }
 };
 
+// Gameplay Functionality
 
-//          Gameplay Functionality
+function updateGame(player) {
+  updatePlayerStats(player)
+  updateDisplayedElements(player);
+  checkWinStatus();
+}
+
+function playerKeyEvent(event) {
+  if (event.keyCode === 81 || event.keyCode === 70) {
+    if (event.keyCode === 81) { // q
+      game.dealCard(game.player1);
+    } else if (event.keyCode === 70) { // f
+      game.slapCard(game.player1);
+    }
+    updateGame(game.player1);
+  } else if (event.keyCode === 80 || event.keyCode === 74) {
+    if (event.keyCode === 80) {// p
+      game.dealCard(game.player2);
+    } else if (event.keyCode === 74) { // j
+      game.slapCard(game.player2);
+    }
+    updateGame(game.player2);
+  }
+  console.log(game.player1.myDeck, game.player2.myDeck);
+}
 
 function updatePlayerStats(player) {
   if (game.referee[player.player] === "valid-slap") {

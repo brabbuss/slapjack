@@ -83,7 +83,7 @@ class Game {
   }
 
   giveAwayCard(player) {
-    player.otherPlayer.myDeck.unshift(player.myDeck[0]);  //illegal slap
+    player.otherPlayer.myDeck.push(player.myDeck[0]);  //illegal slap
     player.myDeck.shift()
   }
 
@@ -100,7 +100,7 @@ class Game {
   }
 
   slapValidation(player) {
-    if (this.discardPile[0] === undefined) { //empty deck
+    if (this.discardPile.length === 0) { //empty deck
       console.log("empty deck");
       return false;
     } else if (this.discardPile.length === 1) {
