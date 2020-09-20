@@ -6,6 +6,7 @@ class Game {
     this.discardPile = [];
     this.gameOver = false;
     this.allCards = startingDeck;
+    this.referee;
   }
 
   setupNewRound() {
@@ -65,34 +66,67 @@ class Game {
       if (player.myTurn === true) {
         this.discardPile.unshift(player.myDeck[0]);       // place on discard pile array
         player.myDeck.shift();      // pull card from my card
-        player.loseTurn();
+        game.referee = {[player.player]: "normal-deal"}
       } else {
         console.log(`not your turn ${player.player}`);
+        game.referee = {[player.player]: "not-your-turn-deal"}
       }
     } else if (player.myDeck[0] === undefined) {  //sudden death
-      player.loseTurn();
+      game.referee = {[player.player]: "no-more-cards-deal"}
       console.log(`All out of cards ${player.player}`);
     }
   }
-}
 
-slapCard(game) {
-  if (this.slapValidation(game) === true && this.otherPlayer.myDeck[0] === undefined) {
-    this.collectDiscardPile(game)
-    game.gameOver = true;
-    alert("game over")
-    //if you successfully slap as leader. you win
-  } else if (this.slapValidation(game) === false && this.myDeck[0] === undefined) {
-    alert("game over")
-    game.gameOver = true;
-  } else if (this.slapValidation(game) === true) {  // legal slap
-    this.collectDiscardPile(game);
-    console.log(game.player1.myDeck, game.player2.myDeck);
-    return true
-  } else if (this.slapValidation(game) === false) {
-    this.otherPlayer.myDeck.unshift(this.myDeck[0]);  //illegal slap
-    this.myDeck.shift()
-    console.log(game.player1.myDeck, game.player2.myDeck);
-    return false
+  collectDiscardPile(player) {
+    player.myDeck = player.myDeck.concat(this.discardPile);
+    this.discardPile = [];
+  }
+
+  giveAwayCard(player) {
+    player.otherPlayer.myDeck.unshift(player.myDeck[0]);  //illegal slap
+    player.myDeck.shift()
+  }
+
+  slapCard(player) {
+    if (this.slapValidation(player) === true && player.otherPlayer.myDeck[0] === undefined) { // endgame slap
+      game.gameOver = true;
+    } else if (this.slapValidation(player) === false && player.myDeck[0] === undefined) {  //endgame slap
+      game.gameOver = true;
+    } else if (this.slapValidation(player) === true) {  // legal slap
+      game.referee = {[player.player]: "valid-slap"}
+    } else if (this.slapValidation(player) === false) {
+      game.referee = {[player.player]: "invalid-slap"}
+    }
+  }
+
+  slapValidation(player) {
+    if (this.discardPile[0] === undefined) { //empty deck
+      console.log("empty deck");
+      return false;
+    } else if (this.discardPile.length === 1) {
+      if (validBasicSlaps.indexOf(this.discardPile[0]) !== -1) {  //  if the string at [0] is not included in basic slaps array, = -1 (void)
+        console.log("jack or trump");
+        return true;
+      } else if (validBasicSlaps.indexOf(this.discardPile[0]) === -1) {
+        console.log("bad slap trump cascade");
+        return false;
+      }
+    } else if (this.discardPile.length === 2) {
+      if (this.discardPile[0].charAt(3) === this.discardPile[1].charAt(3) || validBasicSlaps.indexOf(this.discardPile[0]) !== -1) {  //  leveraging naming convention to match
+        console.log("doubles");
+        return true;
+      } else {
+        console.log("bad slap dbl cascade");
+        return false;
+      }
+    } else if (this.discardPile.length > 2) {
+      if (this.discardPile[0].charAt(3) === this.discardPile[2].charAt(3) || this.discardPile[0].charAt(3) === this.discardPile[1].charAt(3) || validBasicSlaps.indexOf(this.discardPile[0]) !== -1) {
+        console.log("sandwich");
+        return true;
+      } else {
+        console.log("bad slap sandwich cascade");
+        return false;
+      }
+    }
   }
 }

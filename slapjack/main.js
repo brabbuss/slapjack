@@ -1,29 +1,30 @@
 var game = new Game()
 
-document.addEventListener('keydown', function dealOrSLap(event) {
-  if (event.keyCode === 81) { // q
-    game.dealCard(game.player1);
+document.addEventListener('keydown', function playerEvent(event) {
+  if (event.keyCode === 81 || event.keyCode === 70) {
+    if (event.keyCode === 81) { // q
+      game.dealCard(game.player1);
+    } else if (event.keyCode === 70) { // f
+      game.slapCard(game.player1);
+    }
+    // updatePlayerStats(game.player1)
+    updateGame(game.player1);
+  } else if (event.keyCode === 80 || event.keyCode === 74) {
+    if (event.keyCode === 80) {// p
+      game.dealCard(game.player2);
+    } else if (event.keyCode === 74) { // j
+      game.slapCard(game.player2);
+    }
+    // updatePlayerStats(game.player2)
+    updateGame(game.player2);
   }
-  if (event.keyCode === 80) {// p
-    game.dealCard(game.player2);
-  }
-  if (event.keyCode === 70) { // f
-    game.slapCard(game.player1);
-  }
-  if (event.keyCode === 74) { // j
-    game.slapCard(game.player2);
-  }
-  // collectDiscardPile
-  checkGameStatus();
-  updateDisplayedElements();
 })
-//slap
-//if validation = true
-// then game.collect/check turns(goodslap) - use fxn pasted in slack
-// if false then check turns(badslap)
-// dont allow deal if no cards - check cards fxn first
-//  modify slap casvade if no cards in deck
 
+function updateGame(player) {
+  checkWinStatus();
+  updateDisplayedElements(player);
+  updatePlayerStats(player)
+}
 
 document.querySelector("#main__get-started__button").addEventListener('click', hideTutorialStartGame)
 
@@ -34,17 +35,19 @@ function hideTutorialStartGame() {
   startNewRound();
 }
 
-function updateDisplayedElements() {
-  displayCard();
-  whosTurnGlow();
+function updateDisplayedElements(player) {
+  updateDiscardImage();
+  updateTurnGlow();
+  updateTotalCardsText();
+  updatePlayerDeckImage(player);
 }
 
-function updateWins() {
+function updateWinsText() {
   document.querySelector("#deck__player1__wins").innerText = `${game.player1.wins} WINS`
   document.querySelector("#deck__player2__wins").innerText = `${game.player2.wins} WINS`
 }
 
-function displayCard() {
+function updateDiscardImage() {
   if (game.discardPile[0] !== undefined) {
     document.querySelector("#deck__discard__asset").src = `./assets/${game.discardPile[0]}.png`
     document.querySelector("#deck__discard__asset").classList.remove("--hidden")
@@ -53,7 +56,7 @@ function displayCard() {
   }
 }
 
-function whosTurnGlow() {
+function updateTurnGlow() {
   if (game.player1.myTurn === true) {
     document.querySelector("#deck__discard-pile").classList.add("--glow1");
     document.querySelector("#deck__discard-pile").classList.remove("--glow2")
@@ -63,12 +66,44 @@ function whosTurnGlow() {
   }
 }
 
+function updateTotalCardsText() {
+  document.querySelector("#deck__player1__cards").innerText = `CARDS x ${game.player1.myDeck.length}`
+  document.querySelector("#deck__player2__cards").innerText = `CARDS x ${game.player2.myDeck.length}`
+  document.querySelector("#deck__discard__cards").innerText = `CARDS x ${game.discardPile.length}`
+}
+
+function updatePlayerDeckImage(player) {
+  if (player.myDeck[0] === undefined) {
+    document.querySelector(`#deck__${player.player}__image__container`).classList.add("--hidden")
+  } else if (player.myDeck[0] !== undefined) {
+    document.querySelector(`#deck__${player.player}__image__container`).classList.remove("--hidden")
+  }
+};
+
+
 //          Gameplay Functionality
 
-function checkGameStatus() {
+function updatePlayerStats(player) {
+  // console.log(game.referee[player.player]);
+  if (game.referee[player.player] === "valid-slap") {
+    game.collectDiscardPile(player);
+    game.shuffleDeck(player.myDeck);
+    player.keepTurn()
+  } else if (game.referee[player.player] === "invalid-slap") {
+    game.giveAwayCard(player)
+    player.loseTurn();
+  } else if (game.referee[player.player] === "normal-deal") {
+    player.loseTurn();
+  } else if (game.referee[player.player] === "no-more-cards-deal") {
+    player.loseTurn();
+  }
+}
+
+function checkWinStatus() {
   if (game.winCheck() === true) {
+    alert("game over, redeal?")
     startNewRound();
-    updateWins();
+    updateWinsText();
   }
 }
 
@@ -79,5 +114,3 @@ function startNewRound() {
   game.dealNewRound();
   updateDisplayedElements();
 }
-
-// if my turn, highlight deck and card with pulse?
