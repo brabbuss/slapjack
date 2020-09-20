@@ -41,7 +41,7 @@ class Game {
   winCheck() {
     for (var i = 0; i < this.playerArray.length; i++) {
       if (this.playerArray[i].winner === true) {
-        this.playerArray[i].wins++
+        this.playerArray[i].wins += 1;
         return true;
       }
     }
