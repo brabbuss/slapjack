@@ -40,8 +40,10 @@ class Game {
 
   winCheck() {
     for (var i = 0; i < this.playerArray.length; i++) {
-      if (this.playerArray[i].winner === true) {
-        this.playerArray[i].wins += 1;
+      if (game.gameOver === true && this.playerArray[i].myDeck[0] === undefined) {
+        // this.winner = true; //TODO  only assigns win to this player, not other - this is game function to target opposite player
+        // this.wins++;
+        this.playerArray[i].otherPlayer.wins += 1;
         return true;
       }
     }

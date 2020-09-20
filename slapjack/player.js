@@ -36,7 +36,8 @@ class Player {
   slapCard(game) {
     if (this.slapValidation(game) === true && this.otherPlayer.myDeck[0] === undefined) {
       this.collectDiscardPile(game)
-      this.winner = true;
+      // this.winner = true; //TODO  only assigns win to this player, not other - this is game function to target opposite player
+      // this.wins++;
       game.gameOver = true;
       alert("game over")
       //if you successfully slap as leader. you win

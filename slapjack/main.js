@@ -65,7 +65,6 @@ function whosTurnGlow() {
 //          Gameplay Functionality
 
 function checkGameStatus() {
-  game.winCheck();
   if (game.winCheck() === true) {
     startNewRound();
     updateWins();
