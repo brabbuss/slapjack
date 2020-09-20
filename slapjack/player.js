@@ -94,8 +94,9 @@ class Player {
   }
 
   collectDiscardPile(game) {
+    var who = this.player;
     this.myDeck = this.myDeck.concat(game.discardPile);
     game.discardPile = [];
-    game.shuffleDeck(game.this.myDeck);
+    game.shuffleDeck(this.myDeck);
   }
 }
