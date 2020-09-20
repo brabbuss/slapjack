@@ -29,6 +29,6 @@ class Player {
     this.otherPlayer.myTurn = true
   }
   saveWinsToStorage() {
-    
+    game.storedData.push(this.wins)
   }
 }

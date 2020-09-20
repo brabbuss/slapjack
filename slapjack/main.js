@@ -2,6 +2,7 @@ var game = new Game()
 
 // Event Listener
 
+// document.onload = game.loadSavedGame();
 document.addEventListener('keydown', playerKeyEvent)
 document.querySelector("#main__get-started__button").addEventListener('click', hideTutorialStartGame)
 
@@ -9,7 +10,9 @@ document.querySelector("#main__get-started__button").addEventListener('click', h
 
 function hideTutorialStartGame() {
   document.querySelector("#main__get-started").classList.add("--goaway")
+  game.loadSavedGame();
   startNewRound();
+  updateWinsText();
 }
 
 function updateDisplayedElements(player) {
@@ -98,6 +101,7 @@ function checkWinStatus() {
     updateWinsText();
     alert("game over, redeal?")
     startNewRound();
+    game.saveGameToStorage();
   }
 }
 

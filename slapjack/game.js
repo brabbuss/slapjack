@@ -7,6 +7,7 @@ class Game {
     this.gameOver = false;
     this.allCards = startingDeck;
     this.referee;
+    this.storedData = []
   }
 
   setupNewRound() {
@@ -51,14 +52,11 @@ class Game {
   resetPlayerStats() {
     for (var i = 0; i < this.playerArray.length; i++) {
       var i = this.playerArray[i]
-      i.player = i.player;
-      i.otherPlayer = i.otherPlayer;
       i.myTurn = false;
       i.myDeck = [];
-      i.wins = i.wins;
       i.winner = false;
-      this.discardPile = [];
     }
+    this.discardPile = [];
   }
 
   dealCard(player) {
@@ -125,6 +123,19 @@ class Game {
         console.log("bad slap sandwich cascade");
         return false;
       }
+    }
+  }
+  saveGameToStorage() {
+    this.storedData = [];
+    game.player1.saveWinsToStorage();
+    game.player2.saveWinsToStorage();
+    localStorage.setItem('savedWins', JSON.stringify(this.storedData));
+  }
+  loadSavedGame() {
+    if (localStorage.getItem("savedWins") !== undefined) {
+      this.storedData = JSON.parse(localStorage.getItem("savedWins"));
+      this.player1.wins = this.storedData[0]
+      this.player2.wins = this.storedData[1]
     }
   }
 }
