@@ -2,7 +2,7 @@ var validBasicSlaps = [
 "b-jk",
 "y-jk",
 "g-jk",
-"r-jack",
+"r-jk",
 "wild",
 ]
 
