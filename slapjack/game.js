@@ -88,9 +88,9 @@ class Game {
   }
 
   slapCard(player) {
-    if (this.slapValidation(player) === true && player.otherPlayer.myDeck[0] === undefined) { // endgame slap
+    if (this.slapValidation(player) === true && player.otherPlayer.myDeck.length === 0) { // endgame slap
       game.gameOver = true;
-    } else if (this.slapValidation(player) === false && player.myDeck[0] === undefined) {  //endgame slap
+    } else if (this.slapValidation(player) === false && player.myDeck.length === 0) {  //endgame slap
       game.gameOver = true;
     } else if (this.slapValidation(player) === true) {  // legal slap
       game.referee = {[player.player]: "valid-slap"}

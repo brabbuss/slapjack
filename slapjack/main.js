@@ -21,9 +21,9 @@ document.addEventListener('keydown', function playerEvent(event) {
 })
 
 function updateGame(player) {
-  checkWinStatus();
-  updateDisplayedElements(player);
   updatePlayerStats(player)
+  updateDisplayedElements(player);
+  checkWinStatus();
 }
 
 document.querySelector("#main__get-started__button").addEventListener('click', hideTutorialStartGame)
@@ -47,6 +47,12 @@ function updateWinsText() {
   document.querySelector("#deck__player2__wins").innerText = `${game.player2.wins} WINS`
 }
 
+function updateTotalCardsText() {
+  document.querySelector("#deck__player1__cards").innerText = `CARDS x ${game.player1.myDeck.length}`
+  document.querySelector("#deck__player2__cards").innerText = `CARDS x ${game.player2.myDeck.length}`
+  document.querySelector("#deck__discard__cards").innerText = `CARDS x ${game.discardPile.length}`
+}
+
 function updateDiscardImage() {
   if (game.discardPile[0] !== undefined) {
     document.querySelector("#deck__discard__asset").src = `./assets/${game.discardPile[0]}.png`
@@ -66,16 +72,11 @@ function updateTurnGlow() {
   }
 }
 
-function updateTotalCardsText() {
-  document.querySelector("#deck__player1__cards").innerText = `CARDS x ${game.player1.myDeck.length}`
-  document.querySelector("#deck__player2__cards").innerText = `CARDS x ${game.player2.myDeck.length}`
-  document.querySelector("#deck__discard__cards").innerText = `CARDS x ${game.discardPile.length}`
-}
-
 function updatePlayerDeckImage(player) {
-  if (player.myDeck[0] === undefined) {
+  if (player.myDeck.length === 0) {
+    console.log("HIDE DECK");
     document.querySelector(`#deck__${player.player}__image__container`).classList.add("--hidden")
-  } else if (player.myDeck[0] !== undefined) {
+  } else if (player.myDeck.length !== 0) {
     document.querySelector(`#deck__${player.player}__image__container`).classList.remove("--hidden")
   }
 };
@@ -101,9 +102,9 @@ function updatePlayerStats(player) {
 
 function checkWinStatus() {
   if (game.winCheck() === true) {
+    updateWinsText();
     alert("game over, redeal?")
     startNewRound();
-    updateWinsText();
   }
 }
 
