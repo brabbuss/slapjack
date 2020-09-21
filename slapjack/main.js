@@ -18,11 +18,9 @@ function updateDisplayedElements(player) {
   updateDiscardImage();
   updateTurnGlow();
   updateTotalCardsText();
-  if (player !== undefined) {
-    updatePlayerDeckImage(player);
-    updateInDanger(player);
-    updateWhatHappened(player);
-  }
+  updatePlayerDeckImage(player);
+  updateInDanger(player);
+  if (player !== undefined) {updateWhatHappened(player)}
 }
 
 function updateWinsText() {
@@ -47,9 +45,13 @@ function updateDiscardImage() {
 
 function updateTurnGlow() {
   if (game.player1.myTurn === true) {
+    document.querySelector("#deck__p1__image__container").classList.add("--turn");
+    document.querySelector("#deck__p2__image__container").classList.remove("--turn");
     document.querySelector("#deck__discard-pile").classList.add("--glow1");
     document.querySelector("#deck__discard-pile").classList.remove("--glow2")
   } else {
+    document.querySelector("#deck__p1__image__container").classList.remove("--turn");
+    document.querySelector("#deck__p2__image__container").classList.add("--turn");
     document.querySelector("#deck__discard-pile").classList.add("--glow2")
     document.querySelector("#deck__discard-pile").classList.remove("--glow1");
   }
@@ -73,9 +75,14 @@ function updateInDanger(player) {
       document.querySelector(`#deck__${game.playerArray[i].player}__cards`).classList.remove("--danger-text")
     }
   }
+  if (player === undefined) {
+    document.querySelector(`#deck__p1__cards`).classList.remove("--danger-text")
+    document.querySelector(`#deck__p2__cards`).classList.remove("--danger-text")
+  }
 }
 
 function updateWhatHappened(player) {
+  document.querySelector(".cutout-text").classList.remove("--what-happened")
   if (game.referee[player.player] === "slap-trump-card") {
     document.querySelector(".cutout-text").innerText = `${[player.player].toString().toUpperCase()} TRUMP CARD`
   } else if (game.referee[player.player] === "slap-doubles") {
@@ -84,9 +91,12 @@ function updateWhatHappened(player) {
     document.querySelector(".cutout-text").innerText = `${[player.player].toString().toUpperCase()} SANDWICH`
   } else if (game.referee[player.player] === "not-your-turn-deal" || game.referee[player.player] === "no-more-cards-deal") {
     document.querySelector(".cutout-text").innerText = `${[player.otherPlayer.player].toString().toUpperCase()} DEAL`
+  } else if (game.referee[player.player] === "normal-deal") {
+    document.querySelector(".cutout-text").innerText = `S L A P J A C K`
   } else if (game.referee[player.player] === "bad-slap") {
     document.querySelector(".cutout-text").innerText = `${[player.player].toString().toUpperCase()} LOSE A CARD`
   }
+  setTimeout(function() {document.querySelector(".cutout-text").classList.add("--what-happened")}, 100);
 }
 
 // Gameplay Functionality
@@ -94,7 +104,7 @@ function updateWhatHappened(player) {
 function updateGame(player) {
   updatePlayerStats(player)
   updateDisplayedElements(player);
-  checkWinStatus();
+  checkWinStatus(player);
 }
 
 function playerKeyEvent(event) {
@@ -124,9 +134,9 @@ function updatePlayerStats(player) {
   }
 }
 
-function checkWinStatus() {
+function checkWinStatus(player) {
   if (game.winCheck() === true) {
-    updateWinsText();
+    updateWinsText(player);
     alert("game over, redeal?")
     startNewRound();
     game.saveGameToStorage();
@@ -139,4 +149,5 @@ function startNewRound() {
   game.shuffleDeck(game.allCards)
   game.dealNewRound();
   updateDisplayedElements();
+  document.querySelector(".cutout-text").innerText = `S L A P J A C K`
 }
