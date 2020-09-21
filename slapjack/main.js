@@ -18,19 +18,21 @@ function updateDisplayedElements(player) {
   updateDiscardImage();
   updateTurnGlow();
   updateTotalCardsText();
-  updatePlayerDeckImage(player);
-  updateInDanger(player);
-  // updateWhatHappened();
+  if (player !== undefined) {
+    updatePlayerDeckImage(player);
+    updateInDanger(player);
+    updateWhatHappened(player);
+  }
 }
 
 function updateWinsText() {
-  document.querySelector("#deck__player1__wins").innerText = `${game.player1.wins} WINS`
-  document.querySelector("#deck__player2__wins").innerText = `${game.player2.wins} WINS`
+  document.querySelector("#deck__p1__wins").innerText = `${game.player1.wins} WINS`
+  document.querySelector("#deck__p2__wins").innerText = `${game.player2.wins} WINS`
 }
 
 function updateTotalCardsText() {
-  document.querySelector("#deck__player1__cards").innerText = `CARDS x ${game.player1.myDeck.length}`
-  document.querySelector("#deck__player2__cards").innerText = `CARDS x ${game.player2.myDeck.length}`
+  document.querySelector("#deck__p1__cards").innerText = `CARDS x ${game.player1.myDeck.length}`
+  document.querySelector("#deck__p2__cards").innerText = `CARDS x ${game.player2.myDeck.length}`
   document.querySelector("#deck__discard__cards").innerText = `CARDS x ${game.discardPile.length}`
 }
 
@@ -73,18 +75,19 @@ function updateInDanger(player) {
   }
 }
 
-// function updateWhatHappened(player) {
-//   apply styling to visible and pulse (default)
-//   if (game.referee[0] === "slap-trump-card") {
-//     element.innerText = `${player.player}'s take with a trump card!`
-//   } else if (game.referee[0] === "slap-doubles") {
-//     element.innerText = `${player.player}'s take with doubles!`
-//   } else if (game.referee[0] === "slap-sandwich") {
-//     element.innerText = `${player.player}'s take with a sandwich!`
-//   } else {
-//     remove styling
-//   }
-// }
+function updateWhatHappened(player) {
+  if (game.referee[player.player] === "slap-trump-card") {
+    document.querySelector(".cutout-text").innerText = `${[player.player].toString().toUpperCase()} TRUMP CARD`
+  } else if (game.referee[player.player] === "slap-doubles") {
+    document.querySelector(".cutout-text").innerText = `${[player.player].toString().toUpperCase()} DOUBLES`
+  } else if (game.referee[player.player] === "slap-sandwich") {
+    document.querySelector(".cutout-text").innerText = `${[player.player].toString().toUpperCase()} SANDWICH`
+  } else if (game.referee[player.player] === "not-your-turn-deal" || game.referee[player.player] === "no-more-cards-deal") {
+    document.querySelector(".cutout-text").innerText = `${[player.otherPlayer.player].toString().toUpperCase()} DEAL`
+  } else if (game.referee[player.player] === "bad-slap") {
+    document.querySelector(".cutout-text").innerText = `${[player.player].toString().toUpperCase()} LOSES A CARD`
+  }
+}
 
 
 // Gameplay Functionality

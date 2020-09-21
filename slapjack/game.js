@@ -1,7 +1,7 @@
 class Game {
   constructor() {
-    this.player1 = new Player("player1");
-    this.player2 = new Player("player2");
+    this.player1 = new Player("p1");
+    this.player2 = new Player("p2");
     this.playerArray = [this.player1, this.player2]
     this.discardPile = [];
     this.gameOver = false;
