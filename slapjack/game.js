@@ -70,34 +70,48 @@ class Game {
   }
 
   slapValidation(player) {
-    if (this.discardPile.length === 0) {
-      game.referee = {[player.player]: "slap-empty-deck", validSlap: false}
-
-    } else if (this.discardPile.length === 1) {
-      if (validBasicSlaps.indexOf(this.discardPile[0]) !== -1) {  //  if the string at [0] is not included in basic slaps array, = -1 (void)
-        game.referee = {[player.player]: "slap-trump-card", validSlap: true}
-
-      } else if (validBasicSlaps.indexOf(this.discardPile[0]) === -1) {
-        game.referee = {[player.player]: "slap-trump-card-bad", validSlap: false}
-      }
-
-    } else if (this.discardPile.length === 2) {
-      if (this.discardPile[0].charAt(3) === this.discardPile[1].charAt(3) || validBasicSlaps.indexOf(this.discardPile[0]) !== -1) {  //  leveraging naming convention to match
-        game.referee = {[player.player]: "slap-doubles", validSlap: true}
-
-      } else {
-        game.referee = {[player.player]: "slap-doubles-bad", validSlap: false}
-      }
-
-    } else if (this.discardPile.length > 2) {
-      if (this.discardPile[0].charAt(3) === this.discardPile[2].charAt(3) || this.discardPile[0].charAt(3) === this.discardPile[1].charAt(3) || validBasicSlaps.indexOf(this.discardPile[0]) !== -1) {
-        game.referee = {[player.player]: "slap-sandwich", validSlap: true}
-
-      } else {
-        game.referee = {[player.player]: "slap-sandwich-bad", validSlap: false}
-      }
+    if (this.discardPile[0] === undefined) {
+      game.referee = {[player.player]: "bad-slap", validSlap: false}
+    } else if (validBasicSlaps.indexOf(this.discardPile[0]) !== -1) {  //  if the string at [0] is not included in basic slaps array, = -1 (void)
+      game.referee = {[player.player]: "slap-trump-card", validSlap: true}
+    } else if (this.discardPile[0].charAt(3) === this.discardPile[1].charAt(3)) {
+      game.referee = {[player.player]: "slap-doubles", validSlap: true}
+    } else if (this.discardPile[0].charAt(3) === this.discardPile[2].charAt(3)) {
+      game.referee = {[player.player]: "slap-sandwich", validSlap: true}
+    } else {
+      game.referee = {[player.player]: "bad-slap", validSlap: false}
     }
   }
+
+  // slapValidation(player) {
+  //   if (this.discardPile.length === 0) {
+  //     game.referee = {[player.player]: "slap-empty-deck", validSlap: false}
+  //
+  //   } else if (this.discardPile.length === 1) {
+  //     if (validBasicSlaps.indexOf(this.discardPile[0]) !== -1) {  //  if the string at [0] is not included in basic slaps array, = -1 (void)
+  //       game.referee = {[player.player]: "slap-trump-card", validSlap: true}
+  //
+  //     } else if (validBasicSlaps.indexOf(this.discardPile[0]) === -1) {
+  //       game.referee = {[player.player]: "slap-trump-card-bad", validSlap: false}
+  //     }
+  //
+  //   } else if (this.discardPile.length === 2) {
+  //     if (this.discardPile[0].charAt(3) === this.discardPile[1].charAt(3) || validBasicSlaps.indexOf(this.discardPile[0]) !== -1) {  //  leveraging naming convention to match
+  //       game.referee = {[player.player]: "slap-doubles", validSlap: true}
+  //
+  //     } else {
+  //       game.referee = {[player.player]: "slap-doubles-bad", validSlap: false}
+  //     }
+  //
+  //   } else if (this.discardPile.length > 2) {
+  //     if (this.discardPile[0].charAt(3) === this.discardPile[2].charAt(3) || this.discardPile[0].charAt(3) === this.discardPile[1].charAt(3) || validBasicSlaps.indexOf(this.discardPile[0]) !== -1) {
+  //       game.referee = {[player.player]: "slap-sandwich", validSlap: true}
+  //
+  //     } else {
+  //       game.referee = {[player.player]: "slap-sandwich-bad", validSlap: false}
+  //     }
+  //   }
+  // }
 
   collectDiscardPile(player) {
     player.myDeck = player.myDeck.concat(this.discardPile);

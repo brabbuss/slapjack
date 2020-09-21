@@ -89,7 +89,6 @@ function updateWhatHappened(player) {
   }
 }
 
-
 // Gameplay Functionality
 
 function updateGame(player) {
