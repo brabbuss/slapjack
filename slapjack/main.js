@@ -85,7 +85,7 @@ function updateWhatHappened(player) {
   } else if (game.referee[player.player] === "not-your-turn-deal" || game.referee[player.player] === "no-more-cards-deal") {
     document.querySelector(".cutout-text").innerText = `${[player.otherPlayer.player].toString().toUpperCase()} DEAL`
   } else if (game.referee[player.player] === "bad-slap") {
-    document.querySelector(".cutout-text").innerText = `${[player.player].toString().toUpperCase()} LOSES A CARD`
+    document.querySelector(".cutout-text").innerText = `${[player.player].toString().toUpperCase()} LOSE A CARD`
   }
 }
 

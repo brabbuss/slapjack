@@ -70,7 +70,6 @@ class Game {
   }
 
   slapValidation(player) {
-// how many cards in discard?
     if (this.discardPile.length === 0) {
       game.referee = {[player.player]: "slap-empty-deck", validSlap: false}
 
