@@ -1,7 +1,7 @@
 class Game {
   constructor() {
-    this.player1 = new Player("player1");
-    this.player2 = new Player("player2");
+    this.player1 = new Player("p1");
+    this.player2 = new Player("p2");
     this.playerArray = [this.player1, this.player2]
     this.discardPile = [];
     this.gameOver = false;
@@ -56,57 +56,45 @@ class Game {
       if (player.myTurn === true && player.otherPlayer.myDeck[0] === undefined) {
         this.discardPile.unshift(player.myDeck[0]);
         player.myDeck.shift();
-        game.referee = {[player.player]: "endgame-deal"}
+        game.referee = {[player.player]: "endgame-deal", loseDeal: false}
       } else if (player.myTurn === true) {
         this.discardPile.unshift(player.myDeck[0]);
         player.myDeck.shift();
-        game.referee = {[player.player]: "normal-deal"}
-      } else {game.referee = {[player.player]: "not-your-turn-deal"}
+        game.referee = {[player.player]: "normal-deal", loseDeal: true}
+      } else {
+        game.referee = {[player.player]: "not-your-turn-deal", loseDeal: true}
       }
     } else if (player.myDeck[0] === undefined) {
-      game.referee = {[player.player]: "no-more-cards-deal"}
-    }
-  }
-
-  slapCard(player) {
-    if (this.slapValidation(player) === true && player.otherPlayer.myDeck.length === 0) { // endgame slap
-      game.gameOver = true;
-    } else if (this.slapValidation(player) === false && player.myDeck.length === 0) {  //endgame slap
-      game.gameOver = true;
-    } else if (this.slapValidation(player) === true) {
-      game.referee = {[player.player]: "valid-slap"}
-    } else if (this.slapValidation(player) === false) {
-      game.referee = {[player.player]: "invalid-slap"}
+      game.referee = {[player.player]: "no-more-cards-deal", loseDeal: true}
     }
   }
 
   slapValidation(player) {
     if (this.discardPile.length === 0) {
-      console.log("empty deck");
-      return false;
+      game.referee = {[player.player]: "slap-empty-deck", validSlap: false}
+
     } else if (this.discardPile.length === 1) {
       if (validBasicSlaps.indexOf(this.discardPile[0]) !== -1) {  //  if the string at [0] is not included in basic slaps array, = -1 (void)
-        console.log("jack or trump");
-        return true;
+        game.referee = {[player.player]: "slap-trump-card", validSlap: true}
+
       } else if (validBasicSlaps.indexOf(this.discardPile[0]) === -1) {
-        console.log("bad slap trump cascade");
-        return false;
+        game.referee = {[player.player]: "slap-trump-card-bad", validSlap: false}
       }
+
     } else if (this.discardPile.length === 2) {
       if (this.discardPile[0].charAt(3) === this.discardPile[1].charAt(3) || validBasicSlaps.indexOf(this.discardPile[0]) !== -1) {  //  leveraging naming convention to match
-        console.log("doubles");
-        return true;
+        game.referee = {[player.player]: "slap-doubles", validSlap: true}
+
       } else {
-        console.log("bad slap dbl cascade");
-        return false;
+        game.referee = {[player.player]: "slap-doubles-bad", validSlap: false}
       }
+
     } else if (this.discardPile.length > 2) {
       if (this.discardPile[0].charAt(3) === this.discardPile[2].charAt(3) || this.discardPile[0].charAt(3) === this.discardPile[1].charAt(3) || validBasicSlaps.indexOf(this.discardPile[0]) !== -1) {
-        console.log("sandwich");
-        return true;
+        game.referee = {[player.player]: "slap-sandwich", validSlap: true}
+
       } else {
-        console.log("bad slap sandwich cascade");
-        return false;
+        game.referee = {[player.player]: "slap-sandwich-bad", validSlap: false}
       }
     }
   }
@@ -127,6 +115,14 @@ class Game {
         this.playerArray[i].otherPlayer.wins += 1;
         return true;
       }
+    }
+  }
+
+  endGameCheck(player) {
+    if (game.referee.validSlap === true && player.otherPlayer.myDeck.length === 0) { // endgame slap
+      game.gameOver = true;
+    } else if (game.referee.validSlap === false && player.myDeck.length === 0) {  //endgame slap
+      game.gameOver = true;
     }
   }
 
