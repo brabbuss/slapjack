@@ -1,5 +1,4 @@
 html {
-  /* background: linear-gradient(#e66465, #9198e5); */
   height: 100%;
   width: 100%;
   font-family: sans-serif;
@@ -12,12 +11,91 @@ html {
   min-height: 350px;
 }
 
+body {
+  height: 100%;
+  width: 100%;
+  margin: 0px;
+}
+
+main {
+  display: flex;
+  justify-content: space-between;
+  height: 80vh;
+  width: 100%;
+  align-items: center;
+  padding-top: 11%;
+}
+
+p {
+  font-family: sans-serif;
+  color: aliceblue;
+  text-align: center;
+  position: relative;
+  top: 6%;
+  font-size: 33px;
+  margin-top: 0px;
+}
+
+button {
+
+}
+
+/*  Tutorial/Start game box   */
+
+#main__get-started {
+  display: flex;
+  position: absolute;
+  flex-direction: column;
+  background-color: darksalmon;
+  height: 58%;
+  width: 24%;
+  border-radius: 12px;
+  border-radius: 12px;
+  font-family: sans-serif;
+  color: blanchedalmond;
+  text-align: center;
+  top: 20%;
+  left: 36%;
+  box-shadow: inset 1px 2px 20px 20px black;
+}
+
+#main__get-started > h1 {
+  text-align: center;
+  font-size: 60px;
+}
+
+#main__get-started > div {
+  display: flex;
+  justify-content: space-evenly;
+  font-size: 42px;
+  background: blanchedalmond;
+  color: darksalmon;
+}
+
+#main__get-started > div > section {
+  line-height: 1vw;
+}
+
+#main__get-started > button {
+  font-size: 66px;
+  display: block;
+  height: -webkit-fill-available;
+  font-family: sans-serif;
+  font-weight: bolder;
+  border: none;
+  background-color: darksalmon;
+  color: blanchedalmond;
+}
+
+/*    header and header text    */
+
 header {
   display: flex;
   justify-content: center;
   background: url(http://i.giphy.com/3XlEk2RxPS1m8.gif);
   background-size: cover;
   background-position-y: 24%;
+  opacity: .8;
   position: fixed;
   width: -webkit-fill-available;
   height: 20vh;
@@ -35,20 +113,7 @@ header {
   color: transparent;
 }
 
-body {
-  height: 100%;
-  width: 100%;
-  margin: 0px;
-}
-
-main {
-  display: flex;
-  justify-content: space-between;
-  height: 80vh;
-  width: 100%;
-  align-items: center;
-  padding-top: 11%;
-}
+/*    Card decks    */
 
 .deck__block {
   display: flex;
@@ -98,6 +163,22 @@ main {
   object-position: 0px 0px;
 }
 
+/*    Visual Play Indicators    */
+
+.--what-happened {
+  animation-name: pulsePlayer;
+  animation-duration: .8s;
+  animation-iteration-count: 1;
+  transition: all .2s ease-out;
+}
+
+.--turn {
+  animation-name: pulsePlayer;
+  animation-duration: 2s;
+  animation-iteration-count: infinite;
+  transition: all .1s ease-out;
+}
+
 .--glow1 {
   margin-left: 5%;
   box-shadow: 0px 0px 20px 12px #f900ca;
@@ -106,16 +187,6 @@ main {
 .--glow2 {
   margin-right: 5%;
   box-shadow: 0px 0px 20px 12px #2fff4b;
-}
-
-p {
-  font-family: sans-serif;
-  color: aliceblue;
-  text-align: center;
-  position: relative;
-  top: 6%;
-  font-size: 33px;
-  margin-top: 0px;
 }
 
 .--danger-text {
@@ -127,6 +198,8 @@ p {
   font-weight: bolder;
 }
 
+/*      Animations      */
+
 @keyframes pulse {
   0% {
   }
@@ -137,50 +210,17 @@ p {
   }
 }
 
-#main__get-started {
-  display: flex;
-  position: absolute;
-  flex-direction: column;
-  background-color: darksalmon;
-  height: 58%;
-  width: 24%;
-  border-radius: 12px;
-  border-radius: 12px;
-  font-family: sans-serif;
-  color: blanchedalmond;
-  text-align: center;
-  top: 20%;
-  left: 36%;
-  box-shadow: inset 1px 2px 20px 20px black;
+@keyframes pulsePlayer {
+  0% {
+  }
+  50% {
+    transform: scale(1.05);
+  }
+  100% {
+  }
 }
 
-#main__get-started > h1 {
-  text-align: center;
-  font-size: 60px;
-}
-
-#main__get-started > div {
-  display: flex;
-  justify-content: space-evenly;
-  font-size: 42px;
-  background: blanchedalmond;
-  color: darksalmon;
-}
-
-#main__get-started > div > section {
-  line-height: 1vw;
-}
-
-#main__get-started > button {
-  font-size: 66px;
-  display: block;
-  height: -webkit-fill-available;
-  font-family: sans-serif;
-  font-weight: bolder;
-  border: none;
-  background-color: darksalmon;
-  color: blanchedalmond;
-}
+/*      Hide things    */
 
 .--goaway {
   visibility: hidden;
@@ -188,8 +228,4 @@ p {
 
 .--hidden {
   opacity: 0;
-}
-
-button {
-
 }

@@ -118,7 +118,7 @@ class Game {
   }
 
   loadSavedGame() {
-    if (localStorage.getItem("savedWins") !== undefined) {
+    if (localStorage.getItem("savedWins") !== null) {
       this.storedData = JSON.parse(localStorage.getItem("savedWins"));
       this.player1.wins = this.storedData[0]
       this.player2.wins = this.storedData[1]
