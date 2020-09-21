@@ -2,7 +2,6 @@ var game = new Game()
 
 // Event Listener
 
-// document.onload = game.loadSavedGame();
 document.addEventListener('keydown', playerKeyEvent)
 document.querySelector("#main__get-started__button").addEventListener('click', hideTutorialStartGame)
 
@@ -20,6 +19,7 @@ function updateDisplayedElements(player) {
   updateTurnGlow();
   updateTotalCardsText();
   updatePlayerDeckImage(player);
+  updateInDanger(player);
 }
 
 function updateWinsText() {
@@ -62,6 +62,16 @@ function updatePlayerDeckImage(player) {
   }
 };
 
+function updateInDanger(player) {
+  for (var i = 0; i < game.playerArray.length; i++) {
+    if (game.playerArray[i].myDeck.length < 5) {
+      document.querySelector(`#deck__${game.playerArray[i].player}__cards`).classList.add("--danger-text")
+    } else if (game.playerArray[i].myDeck.length > 4) {
+      document.querySelector(`#deck__${game.playerArray[i].player}__cards`).classList.remove("--danger-text")
+    }
+  }
+}
+
 // Gameplay Functionality
 
 function updateGame(player) {
@@ -91,7 +101,9 @@ function updatePlayerStats(player) {
     player.loseTurn();
   } else if (game.referee[player.player] === "normal-deal") {
     player.loseTurn();
-  } else if (game.referee[player.player] === "no-more-cards-to-deal") {
+  } else if (game.referee[player.player] === "endgame-deal") {
+    player.keepTurn()
+  } else if (game.referee[player.player] === "no-more-cards-deal") {
     player.loseTurn();
   }
 }
