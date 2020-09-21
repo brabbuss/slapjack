@@ -20,6 +20,7 @@ function updateDisplayedElements(player) {
   updateTotalCardsText();
   updatePlayerDeckImage(player);
   updateInDanger(player);
+  // updateWhatHappened();
 }
 
 function updateWinsText() {
@@ -72,6 +73,20 @@ function updateInDanger(player) {
   }
 }
 
+// function updateWhatHappened(player) {
+//   apply styling to visible and pulse (default)
+//   if (game.referee[0] === "slap-trump-card") {
+//     element.innerText = `${player.player}'s take with a trump card!`
+//   } else if (game.referee[0] === "slap-doubles") {
+//     element.innerText = `${player.player}'s take with doubles!`
+//   } else if (game.referee[0] === "slap-sandwich") {
+//     element.innerText = `${player.player}'s take with a sandwich!`
+//   } else {
+//     remove styling
+//   }
+// }
+
+
 // Gameplay Functionality
 
 function updateGame(player) {
@@ -92,10 +107,7 @@ function playerKeyEvent(event) {
   }
 }
 
-
-// at this moment, update assets based on referee phrase (sandwich = display sandwich)
 function updatePlayerStats(player) {
-    // slaps
   if (game.referee.validSlap === true) {
     game.collectDiscardPile(player);
     game.shuffleDeck(player.myDeck);
