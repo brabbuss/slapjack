@@ -94,7 +94,7 @@ function updateWhatHappened(player) {
 function updateGame(player) {
   updatePlayerStats(player)
   updateDisplayedElements(player);
-  checkWinStatus();
+  checkWinStatus(player);
 }
 
 function playerKeyEvent(event) {
@@ -124,9 +124,9 @@ function updatePlayerStats(player) {
   }
 }
 
-function checkWinStatus() {
+function checkWinStatus(player) {
   if (game.winCheck() === true) {
-    updateWinsText();
+    updateWinsText(player);
     alert("game over, redeal?")
     startNewRound();
     game.saveGameToStorage();
