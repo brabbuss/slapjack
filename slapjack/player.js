@@ -11,13 +11,13 @@ class Player {
     if (keyCode === 81) { // q
       game.dealCard(game.player1);
     } else if (keyCode === 70) { // f
-      game.slapCard(game.player1);
+      game.slapValidation(game.player1);
     }
 
     if (keyCode === 80) {// p
       game.dealCard(game.player2);
     } else if (keyCode === 74) { // j
-      game.slapCard(game.player2);
+      game.slapValidation(game.player2);
     }
   }
   keepTurn() {

@@ -83,27 +83,29 @@ function updateGame(player) {
 function playerKeyEvent(event) {
   if (event.keyCode === 81 || event.keyCode === 70) {
     game.player1.playCard(event.keyCode)
+    game.endGameCheck(game.player1)
     updateGame(game.player1);
   } else if (event.keyCode === 80 || event.keyCode === 74) {
     game.player1.playCard(event.keyCode)
+    game.endGameCheck(game.player2)
     updateGame(game.player2);
   }
-  console.log(game.player1.myDeck, game.player2.myDeck);
 }
 
+
+// at this moment, update assets based on referee phrase (sandwich = display sandwich)
 function updatePlayerStats(player) {
-  if (game.referee[player.player] === "valid-slap") {
+    // slaps
+  if (game.referee.validSlap === true) {
     game.collectDiscardPile(player);
     game.shuffleDeck(player.myDeck);
     player.keepTurn()
-  } else if (game.referee[player.player] === "invalid-slap") {
+  } else if (game.referee.validSlap === false) {
     game.giveAwayCard(player)
     player.loseTurn();
-  } else if (game.referee[player.player] === "normal-deal") {
-    player.loseTurn();
-  } else if (game.referee[player.player] === "endgame-deal") {
+  } else if (game.referee.loseDeal === false) {
     player.keepTurn()
-  } else if (game.referee[player.player] === "no-more-cards-deal") {
+  } else if (game.referee.loseDeal === true) {
     player.loseTurn();
   }
 }
