@@ -5,16 +5,17 @@ class Player {
     this.myTurn = false;
     this.myDeck = [];
     this.wins = 0;
-    this.winner = false;        // just in case
+    this.winner = false;
   }
+
   /* NOTE TO INSTRUCTOR:
   I didn't want this method inside of the Player class - it adds an extra step
-  - the game Class could have this entire method inside of it. But, I
-  inluded it here because of project guidelines requiring it. I feel similarly
+  - it seems like the game Class could have this entire method inside of it. But, I
+  inluded it here because of project guidelines requiring it! I feel similarly
   about the `saveWinsToStorage()` method. We could make that a Game method
-  and easily save the entire state, but want to follow guidelines!!! just
+  and easily save the entire state, but want to follow guidelines! Just
   adding this note to let you know my thoughts around why I'm having these
-  roundabout functions (that call another class method inside of them) */
+  roundabout functions (that call another class method inside of them :-()  ) */
 
   playCard(keyCode) {
     if (keyCode === 81) { // q

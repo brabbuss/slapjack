@@ -47,44 +47,69 @@ button {
   position: absolute;
   flex-direction: column;
   background-color: darksalmon;
-  height: 58%;
-  width: 24%;
-  border-radius: 12px;
-  border-radius: 12px;
-  font-family: sans-serif;
+  height: 57vh;
+  width: 57vh;
+  border-radius: 50%;
   color: blanchedalmond;
   text-align: center;
-  top: 20%;
-  left: 36%;
-  box-shadow: inset 1px 2px 20px 20px black;
+  padding: 2%;
+  top: 23vh;
+  left: 31vw;
+}
+
+#main__get-started__controls {
+  text-align: initial;
+  padding-left: 2vw;
+}
+
+#main__get-started__rules {
+  text-align: center;
+  padding: 0 2vw;
+  padding-left: 3vw;
 }
 
 #main__get-started > h1 {
   text-align: center;
-  font-size: 60px;
+  margin: 9% 8%;
+  font-size: 4vh;
 }
 
 #main__get-started > div {
   display: flex;
   justify-content: space-evenly;
   font-size: 42px;
-  background: blanchedalmond;
-  color: darksalmon;
+  padding-left: 2.5vw;
 }
 
 #main__get-started > div > section {
   line-height: 1vw;
 }
 
-#main__get-started > button {
+#main__get-started > div > section > h3 {
+  font-size: 3.1vh;
+  margin-top: 0px;
+  text-align: center;
+  color: blanchedalmond;
+}
+
+#main__get-started > div > section > h5 {
+  font-size: 2.2vh;
+  line-height: initial;
+}
+
+#main__get-started__button {
   font-size: 66px;
   display: block;
-  height: -webkit-fill-available;
-  font-family: sans-serif;
+  /* height: -webkit-fill-available; */
+  /* font-family: sans-serif; */
   font-weight: bolder;
-  border: none;
-  background-color: darksalmon;
-  color: blanchedalmond;
+  cursor: pointer;
+  /* border: none; */
+}
+
+#main__get-started__button:hover {
+  transition: all .1s ease-out;
+  transform: scale(1.2);
 }
 
 /*    header and header text    */

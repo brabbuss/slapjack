@@ -1,8 +1,11 @@
+// Global var
+
 var game = new Game()
 
 // Event Listener
 
 document.addEventListener('keydown', playerKeyEvent)
+
 document.querySelector("#main__get-started__button").addEventListener('click', hideTutorialStartGame)
 
 // Functions That Update HTML Visually
@@ -21,17 +24,6 @@ function updateDisplayedElements(player) {
   updatePlayerDeckImage(player);
   updateInDanger(player);
   if (player !== undefined) {updateWhatHappened(player)}
-}
-
-function updateWinsText() {
-  document.querySelector("#deck__p1__wins").innerText = `${game.player1.wins} WINS`
-  document.querySelector("#deck__p2__wins").innerText = `${game.player2.wins} WINS`
-}
-
-function updateTotalCardsText() {
-  document.querySelector("#deck__p1__cards").innerText = `CARDS x ${game.player1.myDeck.length}`
-  document.querySelector("#deck__p2__cards").innerText = `CARDS x ${game.player2.myDeck.length}`
-  document.querySelector("#deck__discard__cards").innerText = `CARDS x ${game.discardPile.length}`
 }
 
 function updateDiscardImage() {
@@ -55,6 +47,12 @@ function updateTurnGlow() {
     document.querySelector("#deck__discard-pile").classList.add("--glow2")
     document.querySelector("#deck__discard-pile").classList.remove("--glow1");
   }
+}
+
+function updateTotalCardsText() {
+  document.querySelector("#deck__p1__cards").innerText = `CARDS x ${game.player1.myDeck.length}`
+  document.querySelector("#deck__p2__cards").innerText = `CARDS x ${game.player2.myDeck.length}`
+  document.querySelector("#deck__discard__cards").innerText = `CARDS x ${game.discardPile.length}`
 }
 
 function updatePlayerDeckImage(player) {
@@ -99,13 +97,12 @@ function updateWhatHappened(player) {
   setTimeout(function() {document.querySelector(".cutout-text").classList.add("--what-happened")}, 100);
 }
 
-// Gameplay Functionality
-
-function updateGame(player) {
-  updatePlayerStats(player)
-  updateDisplayedElements(player);
-  checkWinStatus(player);
+function updateWinsText() {
+  document.querySelector("#deck__p1__wins").innerText = `${game.player1.wins} WINS`
+  document.querySelector("#deck__p2__wins").innerText = `${game.player2.wins} WINS`
 }
+
+// Gameplay Functionality
 
 function playerKeyEvent(event) {
   if (event.keyCode === 81 || event.keyCode === 70) {
@@ -117,6 +114,12 @@ function playerKeyEvent(event) {
     game.endGameCheck(game.player2)
     updateGame(game.player2);
   }
+}
+
+function updateGame(player) {
+  updatePlayerStats(player)
+  updateDisplayedElements(player);
+  checkWinStatus(player);
 }
 
 function updatePlayerStats(player) {
