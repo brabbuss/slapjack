@@ -40,15 +40,15 @@ class Game {
     this.discardPile.unshift(this.allCards[52])
   }
 
-  shuffleDeck(cardArray) {
-    var totalCards = cardArray.length;
-    while (totalCards !== 0) {
-      var randomIndex = Math.floor(Math.random() * totalCards--);
-      var pulledCard = cardArray[totalCards];
-      cardArray[totalCards] = cardArray[randomIndex];
-      cardArray[randomIndex] = pulledCard;
+  shuffleDeck(wholeDeck) {
+    var remainingDeckLength = wholeDeck.length;
+    while (remainingDeckLength !== 0) {
+      var randomIndex = Math.floor(Math.random() * remainingDeckLength--);
+      var pulledCard = wholeDeck[remainingDeckLength];
+      wholeDeck[remainingDeckLength] = wholeDeck[randomIndex];
+      wholeDeck[randomIndex] = pulledCard;
     }
-    return cardArray
+    return wholeDeck
   }
 
   dealCard(player) {

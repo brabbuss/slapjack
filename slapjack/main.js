@@ -1,11 +1,14 @@
+// Global var
+
 var game = new Game()
 
 // Event Listener
 
 document.addEventListener('keydown', playerKeyEvent)
+
 document.querySelector("#main__get-started__button").addEventListener('click', hideTutorialStartGame)
 
-// Functions That Update HTML Visually
+// Functions That Update HTML Visually/play sound
 
 function hideTutorialStartGame() {
   document.querySelector("#main__get-started").classList.add("--goaway")
@@ -21,17 +24,6 @@ function updateDisplayedElements(player) {
   updatePlayerDeckImage(player);
   updateInDanger(player);
   if (player !== undefined) {updateWhatHappened(player)}
-}
-
-function updateWinsText() {
-  document.querySelector("#deck__p1__wins").innerText = `${game.player1.wins} WINS`
-  document.querySelector("#deck__p2__wins").innerText = `${game.player2.wins} WINS`
-}
-
-function updateTotalCardsText() {
-  document.querySelector("#deck__p1__cards").innerText = `CARDS x ${game.player1.myDeck.length}`
-  document.querySelector("#deck__p2__cards").innerText = `CARDS x ${game.player2.myDeck.length}`
-  document.querySelector("#deck__discard__cards").innerText = `CARDS x ${game.discardPile.length}`
 }
 
 function updateDiscardImage() {
@@ -55,6 +47,12 @@ function updateTurnGlow() {
     document.querySelector("#deck__discard-pile").classList.add("--glow2")
     document.querySelector("#deck__discard-pile").classList.remove("--glow1");
   }
+}
+
+function updateTotalCardsText() {
+  document.querySelector("#deck__p1__cards").innerText = `CARDS x ${game.player1.myDeck.length}`
+  document.querySelector("#deck__p2__cards").innerText = `CARDS x ${game.player2.myDeck.length}`
+  document.querySelector("#deck__discard__cards").innerText = `CARDS x ${game.discardPile.length}`
 }
 
 function updatePlayerDeckImage(player) {
@@ -99,13 +97,26 @@ function updateWhatHappened(player) {
   setTimeout(function() {document.querySelector(".cutout-text").classList.add("--what-happened")}, 100);
 }
 
-// Gameplay Functionality
-
-function updateGame(player) {
-  updatePlayerStats(player)
-  updateDisplayedElements(player);
-  checkWinStatus(player);
+function updateWinsText() {
+  document.querySelector("#deck__p1__wins").innerText = `${game.player1.wins} WINS`
+  document.querySelector("#deck__p2__wins").innerText = `${game.player2.wins} WINS`
 }
+
+function playSound(player) {
+  if (refereeValidSlaps.includes(game.referee[player.player])) {
+    var x = Math.floor(Math.random() * slapArray.length)
+    var slap = new Audio(slapArray[x]);
+    slap.volume = .6;
+    slap.play();
+  } else if (refereeIllegalMoves.includes(game.referee[player.player])) {
+    var x = Math.floor(Math.random() * oopsArray.length)
+    var oops = new Audio(oopsArray[x])
+    oops.volume = .5;
+    oops.play();
+  }
+}
+
+// Gameplay Functionality
 
 function playerKeyEvent(event) {
   if (event.keyCode === 81 || event.keyCode === 70) {
@@ -117,6 +128,13 @@ function playerKeyEvent(event) {
     game.endGameCheck(game.player2)
     updateGame(game.player2);
   }
+}
+
+function updateGame(player) {
+  updatePlayerStats(player)
+  updateDisplayedElements(player);
+  playSound(player);
+  checkWinStatus(player);
 }
 
 function updatePlayerStats(player) {

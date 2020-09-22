@@ -47,44 +47,74 @@ button {
   position: absolute;
   flex-direction: column;
   background-color: darksalmon;
-  height: 58%;
-  width: 24%;
-  border-radius: 12px;
-  border-radius: 12px;
-  font-family: sans-serif;
-  color: blanchedalmond;
+  height: 65vh;
+  width: 65vh;
+  border-radius: 50%;
+  color: aliceblue;
   text-align: center;
-  top: 20%;
-  left: 36%;
-  box-shadow: inset 1px 2px 20px 20px black;
+  padding: 2%;
+  top: 25%;
+  left: 31%;
+}
+
+#main__get-started__controls {
+  text-align: initial;
+  padding-left: 2vw;
+}
+
+#main__get-started__rules {
+  text-align: center;
+  padding: 0 2vw;
+  padding-left: 3vw;
 }
 
 #main__get-started > h1 {
   text-align: center;
-  font-size: 60px;
+  margin: 9% 8%;
+  font-size: 5vh;
 }
 
 #main__get-started > div {
   display: flex;
   justify-content: space-evenly;
   font-size: 42px;
-  background: blanchedalmond;
-  color: darksalmon;
+  padding-left: 2.5vw;
 }
 
 #main__get-started > div > section {
   line-height: 1vw;
 }
 
-#main__get-started > button {
-  font-size: 66px;
-  display: block;
-  height: -webkit-fill-available;
-  font-family: sans-serif;
-  font-weight: bolder;
-  border: none;
-  background-color: darksalmon;
+#main__get-started > div > section > h3 {
+  font-size: 3.1vh;
+  margin-top: 0px;
+  text-align: center;
+}
+
+#main__get-started > div > section > h5 {
+  font-size: 2.2vh;
+  line-height: initial;
   color: blanchedalmond;
+}
+
+#main__get-started__button {
+  font-size: 11vh;
+  display: block;
+  font-weight: bolder;
+  cursor: pointer;
+  position: initial;
+  transition: all 0.2s ease;
+}
+
+#main__get-started__button:hover {
+  transform: scale(1.2);
+}
+
+#main__get-started:hover {
+  animation-name: excited;
+  animation-duration: .05s;
+  animation-iteration-count: infinite;
+  animation-direction: alternate;
 }
 
 /*    header and header text    */
@@ -217,6 +247,15 @@ header {
     transform: scale(1.05);
   }
   100% {
+  }
+}
+
+@keyframes excited {
+  0% {
+    transform: translate(0);
+  }
+  100% {
+    transform: translate(1%);
   }
 }
 
