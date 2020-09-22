@@ -47,14 +47,14 @@ button {
   position: absolute;
   flex-direction: column;
   background-color: darksalmon;
-  height: 57vh;
-  width: 57vh;
+  height: 65vh;
+  width: 65vh;
   border-radius: 50%;
-  color: blanchedalmond;
+  color: aliceblue;
   text-align: center;
   padding: 2%;
-  top: 23vh;
-  left: 31vw;
+  top: 25%;
+  left: 31%;
 }
 
 #main__get-started__controls {
@@ -71,7 +71,7 @@ button {
 #main__get-started > h1 {
   text-align: center;
   margin: 9% 8%;
-  font-size: 4vh;
+  font-size: 5vh;
 }
 
 #main__get-started > div {
@@ -89,27 +89,32 @@ button {
   font-size: 3.1vh;
   margin-top: 0px;
   text-align: center;
-  color: blanchedalmond;
 }
 
 #main__get-started > div > section > h5 {
   font-size: 2.2vh;
   line-height: initial;
+  color: blanchedalmond;
 }
 
 #main__get-started__button {
-  font-size: 66px;
+  font-size: 11vh;
   display: block;
-  /* height: -webkit-fill-available; */
-  /* font-family: sans-serif; */
   font-weight: bolder;
   cursor: pointer;
-  /* border: none; */
+  position: initial;
+  transition: all 0.2s ease;
 }
 
 #main__get-started__button:hover {
-  transition: all .1s ease-out;
   transform: scale(1.2);
+}
+
+#main__get-started:hover {
+  animation-name: excited;
+  animation-duration: .05s;
+  animation-iteration-count: infinite;
+  animation-direction: alternate;
 }
 
 /*    header and header text    */
@@ -242,6 +247,15 @@ header {
     transform: scale(1.05);
   }
   100% {
+  }
+}
+
+@keyframes excited {
+  0% {
+    transform: translate(0);
+  }
+  100% {
+    transform: translate(1%);
   }
 }
 

@@ -1,9 +1,34 @@
+var oopsArray = [
+  "./assets/high-oops.wav",
+  "./assets/wim-oops.wav",
+  "./assets/lexie-oops.ogg"
+]
+
+var slapArray = [
+  "./assets/slap-reverb.m4a",
+  "./assets/slap.wav"
+]
+
 var validBasicSlaps = [
 "b-jk",
 "y-jk",
 "g-jk",
 "r-jk",
 "wild",
+]
+
+var refereeValidSlaps = [
+"slap-trump-card",
+"slap-doubles",
+"slap-sandwich"
+]
+
+var refereeIllegalMoves = [
+"bad-slap",
+"slap-doubles",
+"slap-sandwich",
+"not-your-turn-deal",
+"no-more-cards-deal"
 ]
 
 var startingDeck =

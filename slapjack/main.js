@@ -8,7 +8,7 @@ document.addEventListener('keydown', playerKeyEvent)
 
 document.querySelector("#main__get-started__button").addEventListener('click', hideTutorialStartGame)
 
-// Functions That Update HTML Visually
+// Functions That Update HTML Visually/play sound
 
 function hideTutorialStartGame() {
   document.querySelector("#main__get-started").classList.add("--goaway")
@@ -102,6 +102,20 @@ function updateWinsText() {
   document.querySelector("#deck__p2__wins").innerText = `${game.player2.wins} WINS`
 }
 
+function playSound(player) {
+  if (refereeValidSlaps.includes(game.referee[player.player])) {
+    var x = Math.floor(Math.random() * slapArray.length)
+    var slap = new Audio(slapArray[x]);
+    slap.volume = .6;
+    slap.play();
+  } else if (refereeIllegalMoves.includes(game.referee[player.player])) {
+    var x = Math.floor(Math.random() * oopsArray.length)
+    var oops = new Audio(oopsArray[x])
+    oops.volume = .5;
+    oops.play();
+  }
+}
+
 // Gameplay Functionality
 
 function playerKeyEvent(event) {
@@ -119,6 +133,7 @@ function playerKeyEvent(event) {
 function updateGame(player) {
   updatePlayerStats(player)
   updateDisplayedElements(player);
+  playSound(player);
   checkWinStatus(player);
 }
 
