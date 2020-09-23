@@ -1,14 +1,8 @@
-// Global var
-
 var game = new Game()
-
-// Event Listener
 
 document.addEventListener('keydown', playerKeyEvent)
 
 document.querySelector("#main__get-started__button").addEventListener('click', hideTutorialStartGame)
-
-// Functions That Update HTML Visually/play sound
 
 function hideTutorialStartGame() {
   document.querySelector("#main__get-started").classList.add("--goaway")
@@ -115,8 +109,6 @@ function playSound(player) {
     oops.play();
   }
 }
-
-// Gameplay Functionality
 
 function playerKeyEvent(event) {
   if (event.keyCode === 81 || event.keyCode === 70) {
