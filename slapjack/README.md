@@ -68,14 +68,37 @@ Ultimately that looked like the following for SlapJack (this method is called wh
 
 #### UX, Animations and Extensions
 
+Adding animations with intention was a task happily tackled. The opening instructions with 'start' button sets the tone for the game. CSS :hover was used on the tutorial div to animate it with a keyframe, to make it 'shake' with anticipation of the upcoming game. More keyframes were used to animate a slow pulse to indicate player turns, danger indicator for low cards, and as well as the pulse on the helper header text for any given player action. 
+
+The aim of animations were to aid in UX rather than detract from it with superflous, unhelpful flash. Animations are small calls to action to both help direct game flow and enjoyment, but also helps to enhance enjoyment with relevant and often amusing feedback.
+
+Additionally, sounds were added. Perhaps some of the most enjoyment was had setting up a function to randomly choose from an array of sounds on certain player actions (successful slap, invalid slap or deal). TURN ON YOUR SOUND!
 
 #### Resources
 
+Sound files:
+- https://freesound.org/people/javapimp/sounds/439128/
+- https://freesound.org/people/WIM/sounds/9020/
+- https://freesound.org/people/JonasTisell/sounds/442257/
+- https://freesound.org/people/WIM/sounds/9020/
+- https://freesound.org/people/travississimo/sounds/457341/
+
+Fisher-Yates Shuffle Method:
+- https://en.wikipedia.org/wiki/Fisher%E2%80%93Yates_shuffle
+- https://bost.ocks.org/mike/shuffle/
+
+CSS tricks:
+- Header text cutout: https://css-tricks.com/lets-look-50-interesting-css-properties-values/
+- Rapid animation restart (for when player hits deal or slap quickly in succession): https://css-tricks.com/restart-css-animation/
+- Cropping an SVG with a div container to get cards to size correctly without skewing card image: https://www.educative.io/edpresso/how-to-crop-an-image-in-css
+
+
 
 ## Contributors
-
 <img src="https://avatars1.githubusercontent.com/u/66697338?s=460&u=3d2e338fdeb625c1940a87b1cfdb7ba6e7d16c5c&v=4" alt="Coding Magician"
- width="150" height="auto" />\
+ width="150" height="auto" style="float: left" />\
 **Scott Brabson**
+
 [GitHub Profile](https://github.com/brabbuss)
-FE Engineering student at Turing School entering Mod 2 (of 5) who has found no end to the joy that is creating as you speak the language of JS
+
+FE Engineering student at Turing School entering Mod 2 (of 5) who has found no end to the joy that is creating as you speak the language of JS.
