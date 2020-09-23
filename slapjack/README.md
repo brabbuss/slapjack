@@ -58,9 +58,9 @@ As the game expanded, it became more and more difficult to consult numerous Game
 
 Below you will see screenshots; at any given change in gameplay, the property "game.referee = player: xxxx" - the Game property .referee is set to evaluate to an object (the given player and what they've done). "Player" is either p1 or p2, and "xxx" is what's occurred (P1: "valid-slap", P2: "not-your-turn", etc.). Having a single source for much of the messaging I needed in game was a huge help in cutting out the effort needed to funnel a piece of logic to where it needed to go through the twists and turns of if statements within if statements.
 
+![game.referee in real-time](https://media.giphy.com/media/2AmMadJjq162RaiCWV/giphy.gif)
 ![game.referee helping to update visual elements](https://user-images.githubusercontent.com/66697338/93956021-6723f280-fd0e-11ea-8352-73b9d11c7e2f.png)
 ![game.referee helping to call out what type of event occurred](https://user-images.githubusercontent.com/66697338/93956025-69864c80-fd0e-11ea-8a02-2f20cb24231d.png)
-![game.referee in real-time](https://media.giphy.com/media/2AmMadJjq162RaiCWV/giphy.gif)
 
 #### Fisher-Yates Shuffle Method
 It seems important to call out the shuffle method used. The method being drawn on was first developed by Ronald Fisher and Frank Yates. More can be read [here](https://bost.ocks.org/mike/shuffle/) along with some really cool visualizations. Broken down into steps as originally conceived (on pen and paper), the method goes as follows:
