@@ -2,10 +2,17 @@ https://github.com/brabbuss/slapjack/tree/main/slapjack
 ---
 # SlapJack - A multisensory slapsperience
 ###### Play a silly game of SlapJack locally with another person!
+
+<details>
+  <summary>* NOTE TO INSTRUCTOR *</summary>
+ I had to fight the urge to rip `playCard()` and the `saveWinsToStorage()` method out of the Player class. I feel that making both of those a method of the Game class would elliminate an uneccessary step and also get rid of two extranneous methods - however I want to follow project guidelines!
+</details>
+
 ---
 ## Table of Contents
 * [Introduction](#introduction)
 * [Features](#features)
+* [Resources](#resources)
 * [Contributors](#contributors)
 
 ## Introduction
@@ -27,7 +34,7 @@ There's more info under here about the functionality being described!
 * [The Game Referee](#the-game-referee)
 * [Fisher-Yates Shuffle Method](#fisher-yates-shuffle-method)
 * [UX, Animations and Extensions](#ux-animations-and-extensions)
-* [Resources](#resources)
+* [Roadmap](#roadmap)
 ---
 
 #### Game Mechanics
@@ -82,6 +89,14 @@ Adding animations with intention was a task happily tackled. The opening instruc
 The aim of animations were to aid in UX rather than detract from it with superflous, unhelpful flash. Animations are small calls to action to both help direct game flow and enjoyment, but also helps to enhance enjoyment with relevant and often amusing feedback.
 
 Additionally, sounds were added. Perhaps some of the most enjoyment was had setting up a function to randomly choose from an array of sounds on certain player actions (successful slap, invalid slap or deal). TURN ON YOUR SOUND!
+
+#### Roadmap
+
+In future iterations, additions to the game include:
+- Adding styling to a win state
+- Add card animations to add visual indicator of who won the deck
+- Style out the tutorial to be more 'on brand'
+- Add a 'WILD' mode - slapping the wild instantly loses the round, wild mode swaps color palette on site
 
 #### Resources
 
