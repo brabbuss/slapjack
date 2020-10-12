@@ -1,7 +1,7 @@
 https://brabbuss.github.io/slapjack/
 ---
 # SlapJack - A multisensory slapsperience
-###### Play a silly game of SlapJack locally with another person!
+###### Play a silly game of SlapJack on your computer with another person!
 
 
 ---
