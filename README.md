@@ -3,10 +3,6 @@ https://github.com/brabbuss/slapjack/tree/main/slapjack
 # SlapJack - A multisensory slapsperience
 ###### Play a silly game of SlapJack locally with another person!
 
-<details>
-  <summary>* NOTE TO INSTRUCTOR *</summary>
- I had to fight the urge to rip `playCard()` and the `saveWinsToStorage()` method out of the Player class. I feel that making both of those a method of the Game class would elliminate an uneccessary step and also get rid of two extranneous methods - however I want to follow project guidelines!
-</details>
 
 ---
 ## Table of Contents
